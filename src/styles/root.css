@@ -1,0 +1,26 @@
+/* body {
+    background-color: black;
+} */
+
+/* @media(prefers-color-scheme: dark) {
+    :root {
+        --text-color: white;
+        --background: black;
+    }
+}
+
+body {
+    background-color: var(--background, black) !important;
+    color: var(--text-color, white) !important;
+} */
+
+/* .form-control {
+    background-color: var(--bs-light-bg-subtle) !important;
+    color: var(--bs-dark-text-emphasis) !important;
+}
+
+.form-control:focus {
+    background-color: var(--bs-light-bg-subtle) !important;
+    color: var(--bs-light-text-emphasis) !important;
+} */
+

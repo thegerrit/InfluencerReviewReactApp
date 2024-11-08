@@ -1,0 +1,17 @@
+/* Light theme by default */
+/* [data-bs-theme="light"] {
+  /* This is set by default in Bootstrap, but it's here to demonstrate */
+/*} */
+
+/* Automatically switch to dark theme if the user prefers it */
+/* @media(prefers-color-scheme: dark) {
+  root {
+    background-color: blue;
+  }
+}
+
+@media(prefers-color-scheme: light) {
+  root {
+    background-color: pink;
+  }
+} */
