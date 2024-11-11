@@ -2,6 +2,10 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AddInfluencer: React.FC = () => {
+  const handleClick = () => {
+    window.location.href = '/AddInfluencer';
+  };
+
   return (
     <div className="container d-flex justify-content-center my-4">
       <div className="row w-75">
@@ -11,7 +15,11 @@ const AddInfluencer: React.FC = () => {
           </p>
         </div>
         <div className="col-4 d-flex justify-content-end">
-          <button className="btn btn-primary" style={{ width: '100%' }}>
+          <button 
+            className="btn btn-primary" 
+            style={{ width: '100%' }}
+            onClick={handleClick}
+          >
             Add Influencer
           </button>
         </div>

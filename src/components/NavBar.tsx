@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';  // Add this line
 import '../styles/navbar.css';
 
 const NavBar: React.FC = () => {
@@ -27,10 +28,29 @@ const NavBar: React.FC = () => {
         
         {/* Right-aligned item */}
         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li className="nav-item custom-nav-item">
-            <a className="nav-link text-decoration-none" href="/settings" style={{ color: 'var(--bs-body-color)' }}>
-              Settings
-            </a>
+          <li className="nav-item dropdown custom-nav-item">
+            <span 
+              className="nav-link dropdown-toggle text-decoration-none" 
+              // href="#" 
+              role="button" 
+              data-bs-toggle="dropdown" 
+              aria-expanded="false"
+              style={{ color: 'var(--bs-body-color)' }}
+            >
+              Account
+            </span>
+            <ul className="dropdown-menu dropdown-menu-end">
+              <li>
+                <a className="dropdown-item" href="/login">
+                  Log In
+                </a>
+              </li>
+              <li>
+                <a className="dropdown-item" href="/signup">
+                  Sign Up
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

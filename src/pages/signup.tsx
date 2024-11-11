@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import BrowsePage from '../components/BrowsePage';
+import ComingSoon from '../components/ComingSoon';
 import AppContainer from '../App';
 
 
@@ -8,6 +8,6 @@ import AppContainer from '../App';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <AppContainer ComponentProp={<BrowsePage />}/>
+      <AppContainer ComponentProp={<ComingSoon />}/>
     </StrictMode>,
   );

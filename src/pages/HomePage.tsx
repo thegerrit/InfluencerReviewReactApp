@@ -1,5 +1,9 @@
 import React from 'react';
 const HomePage: React.FC = () => {
+
+  const handleClick = () => {
+    window.location.href = '/search';
+  }
   return (
     <div 
       className="container my-5 px-3 px-md-5 py-4"
@@ -40,6 +44,7 @@ const HomePage: React.FC = () => {
             color: 'var(--bs-body-bg)', 
             margin: '0 auto',
           }}
+          onClick={handleClick}
         >
           Let's Go
         </button>

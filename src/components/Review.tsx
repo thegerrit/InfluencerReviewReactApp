@@ -57,7 +57,10 @@ const Review: React.FC<ReviewProps> = ({ reviewData }) => {
         style={{ backgroundColor: 'var(--bs-primary-bg-subtle)', color: 'var(--bs-primary-text)' }}
       >
         <h5 className="mb-0">
-          {userName} <span style={{fontWeight:"lighter"}}>reviewed</span> {influencerName} <br/>
+          {userName} <span style={{
+            fontWeight:"lighter",
+            opacity: "60%"
+          }}>reviewed</span> {influencerName} <br/>
           <span className="ms-2 text-warning" style={{
             paddingTop: "0.3rem",
             paddingBottom: "0.3rem",
