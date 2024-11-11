@@ -21,6 +21,8 @@ const BrowsePage: React.FC = () => {
         <div>
             <h1 className="page-title">Browse Recent Posts</h1>
             <Review reviewData={sampleReview} />
+            <Review reviewData={sampleReview} />
+            <Review reviewData={sampleReview} />
         </div>
         
     );
