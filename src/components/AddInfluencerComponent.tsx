@@ -2,38 +2,80 @@ import React, { useState } from 'react';
 import TagsInputForm from './TagsInputForm';
 import OtherSocialMediaForm from './OtherSocialMediaForm';
 import SocialMediaForm from './SocialMediaForm';
+import { db } from '../FirebaseConfig';
+import { addDoc, collection } from 'firebase/firestore';
+import InfluencerData from '../model/InfluencerData';
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  contact: string;
-  socialMediaHandles: { platform: string; handle: string }[]
-  otherSocialMediaHandles: { platform: string; handle: string }[];
-  tags: string[];
+// import { initializeApp } from 'firebase/app';
+// import { getFirestore, collection, addDoc, connectFirestoreEmulator } from 'firebase/firestore';
+
+// // Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAOUuvFA3c7pII5AYy1GD7f5SYeZTmz1Tw",
+//   authDomain: "core-photon-441421-q4.firebaseapp.com",
+//   projectId: "core-photon-441421-q4",
+//   storageBucket: "core-photon-441421-q4.firebasestorage.app",
+//   messagingSenderId: "243546574055",
+//   appId: "1:243546574055:web:3c0f5cb99bca7b0282a642",
+//   measurementId: "G-CZCF42FPP6"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
+
+// // Connect to Firestore emulator
+// connectFirestoreEmulator(db, '127.0.0.1', 8080);
+
+// Function to add influencer data to Firestore
+async function addInfluencerToFirestore(influencerData: any) {
+  try {
+    const docRef = await addDoc(collection(db, 'influencers'), influencerData);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
 }
+// ... existing code ...
+
+// interface influencerData {
+//   firstName: string;
+//   lastName: string;
+//   contact: string;
+//   socialMediaHandles: { platform: string; handle: string }[]
+//   otherSocialMediaHandles: { platform: string; handle: string }[];
+//   tags: string[];
+//   numberOfReviews: number;
+//   starRating: number;
+// }
+
+
 
 const AddInfluencerPage: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [influencerData, setInfluencerData] = useState<InfluencerData>({
+    influencerId: 'place_holder_id',
     firstName: '',
     lastName: '',
     contact: '',
-    socialMediaHandles: [],
-    otherSocialMediaHandles: [],
+    starRating: -1,
+    popularMediaHandles: [],
+    otherMediaHandles: [],
+    numberOfReviews: 0,
     tags: []
   });
 
   //function to update Text input fields
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof FormData, index?: number) => {
-    if (index !== undefined && Array.isArray(formData[field])) {
-      const updatedArray = [...(formData[field] as string[])];
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof InfluencerData, index?: number) => {
+    if (index !== undefined && Array.isArray(influencerData[field])) {
+      const updatedArray = [...(influencerData[field] as string[])];
       updatedArray[index] = e.target.value;
-      setFormData({
-        ...formData,
+      setInfluencerData({
+        ...influencerData,
         [field]: updatedArray,
       });
     } else {
-      setFormData({
-        ...formData,
+      setInfluencerData({
+        ...influencerData,
         [field]: e.target.value,
       });
     }
@@ -44,29 +86,29 @@ const AddInfluencerPage: React.FC = () => {
   // Functions to update parent component state from children
   //-------- social media handles
   const updateMediaHandles = (handles: {platform: string, handle: string}[]) => {
-    setFormData((prevData) => ({
+    setInfluencerData((prevData) => ({
         ...prevData,
         socialMediaHandles: handles
     }));
   }
   // ------- other social media handles
   const updateOtherMediaHandles = (handles: {platform: string, handle: string}[]) => {
-    setFormData((prevData) => ({
+    setInfluencerData((prevData) => ({
         ...prevData,
         otherSocialMediaHandles: handles
     }));
   }
 
-  // -------- tags in formData
+  // -------- tags in influencerData
   const addTag = (tag: string) => {
-    setFormData((prevData) => ({
+    setInfluencerData((prevData) => ({
       ...prevData,
       tags: [...prevData.tags, tag],
     }));
   };
 
   const removeTag = (index: number) => {
-    setFormData((prevData) => ({
+    setInfluencerData((prevData) => ({
       ...prevData,
       tags: prevData.tags.filter((_, i) => i !== index),
     }));
@@ -75,7 +117,7 @@ const AddInfluencerPage: React.FC = () => {
   // Handle form submission
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Form Data:', formData);
+    console.log('Form Data:', influencerData);
   };
 
   return (
@@ -90,7 +132,7 @@ const AddInfluencerPage: React.FC = () => {
             type="text"
             className="form-control"
             id="firstName"
-            value={formData.firstName}
+            value={influencerData.firstName}
             onChange={(e) => handleChange(e, 'firstName')}
           />
         </div>
@@ -100,7 +142,7 @@ const AddInfluencerPage: React.FC = () => {
             type="text"
             className="form-control"
             id="lastName"
-            value={formData.lastName}
+            value={influencerData.lastName}
             onChange={(e) => handleChange(e, 'lastName')}
           />
         </div>
@@ -111,7 +153,7 @@ const AddInfluencerPage: React.FC = () => {
             type="text"
             className="form-control"
             id="contact"
-            value={formData.contact}
+            value={influencerData.contact}
             onChange={(e) => handleChange(e, 'contact')}
           />
         </div>
@@ -127,11 +169,11 @@ const AddInfluencerPage: React.FC = () => {
         />
 
         {/* TagsInputForm Component */}
-        <TagsInputForm tags={formData.tags} addTag={addTag} removeTag={removeTag} />
+        <TagsInputForm tags={influencerData.tags} addTag={addTag} removeTag={removeTag} />
 
         {/* Submit button */}
         <div className="mt-4">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" onClick={() => addInfluencerToFirestore(influencerData)}>
             Submit Form
           </button>
         </div>

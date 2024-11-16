@@ -6,6 +6,7 @@ import './styles/root.css';
 import './styles/common.css';
 import { useEffect, ReactNode } from 'react';
 import Navbar from './components/NavBar';
+import withAuth from './withAuth';
 
 interface DisplayComponentProps {
   ComponentProp: ReactNode;
@@ -54,4 +55,4 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
   )
 }
 
-export default AppContainer;
+export default withAuth(AppContainer);

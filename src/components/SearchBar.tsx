@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import { InfluencerData } from './InfluencerDetails';
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{ searchFunction: () => void }> = ({ searchFunction }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -10,6 +11,7 @@ const SearchBar: React.FC = () => {
 
   const handleSearchClick = () => {
     console.log(searchText);
+    searchFunction();
   };
 
   return (

@@ -1,22 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/InfluencerSearchResult.css';
-
-interface MediaHandle {
-  platform: string;
-  handle: string;
-}
-
-interface InfluencerData {
-  influencerId: string;
-  firstName: string;
-  lastName: string;
-  starRating: number;
-  popularMediaHandles: MediaHandle[];
-  otherMediaHandles: MediaHandle[];
-  numberOfReviews: number;
-  tags: string[];
-}
+import InfluencerData from '../model/InfluencerData';
 
 interface InfluencerSearchResultProps {
   influencer: InfluencerData;

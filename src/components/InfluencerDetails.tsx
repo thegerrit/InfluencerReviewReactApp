@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import Review from './Review'; 
 import WriteReviewComponent from './WriteReviewComponent';
-interface MediaHandle {
-  platform: string;
-  handle: string;
-}
+import InfluencerData from '../model/InfluencerData';
+// interface MediaHandle {
+//   platform: string;
+//   handle: string;
+// }
 
-interface InfluencerData {
-  influencerId: string;
-  firstName: string;
-  lastName: string;
-  starRating: number;
-  popularMediaHandles: MediaHandle[];
-  otherMediaHandles: MediaHandle[];
-  listOfPosts: string[];
-  tags: string[];
-}
+// interface InfluencerData {
+//   influencerId: string;
+//   firstName: string;
+//   lastName: string;
+//   starRating: number;
+//   popularMediaHandles: MediaHandle[];
+//   otherMediaHandles: MediaHandle[];
+//   listOfPosts: string[];
+//   tags: string[];
+//   numberOfReviews: number;
+// }
 
 interface InfluencerDetailsProps {
   influencer: InfluencerData;
