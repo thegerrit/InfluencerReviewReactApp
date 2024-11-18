@@ -26,7 +26,13 @@ const InfluencerSearchResult: React.FC<InfluencerSearchResultProps> = ({ influen
       <div className="row row-cols-1 row-cols-md-auto g-3 align-items-center">
         {/* Basic Info Section */}
         <div className="col d-flex flex-column flex-md-row align-items-start align-items-md-center">
-          <h5 className="mb-0 me-md-2 text-md-start">{influencer.firstName} {influencer.lastName}</h5>
+          <h5 
+            className="mb-0 me-md-2 text-md-start" 
+            onClick={() => window.location.href = `/influencer?id=${influencer.influencerId}`}
+            style={{ cursor: 'pointer' }}
+          >
+            {influencer.firstName} {influencer.lastName}
+          </h5>
           <span
             className="badge bg-primary mt-1 mt-md-0 me-md-2"
             style={{

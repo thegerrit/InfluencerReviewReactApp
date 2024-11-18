@@ -2,58 +2,12 @@ import React, { useState } from 'react';
 import TagsInputForm from './TagsInputForm';
 import OtherSocialMediaForm from './OtherSocialMediaForm';
 import SocialMediaForm from './SocialMediaForm';
-import { db } from '../FirebaseConfig';
-import { addDoc, collection } from 'firebase/firestore';
 import InfluencerData from '../model/InfluencerData';
-
-// import { initializeApp } from 'firebase/app';
-// import { getFirestore, collection, addDoc, connectFirestoreEmulator } from 'firebase/firestore';
-
-// // Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAOUuvFA3c7pII5AYy1GD7f5SYeZTmz1Tw",
-//   authDomain: "core-photon-441421-q4.firebaseapp.com",
-//   projectId: "core-photon-441421-q4",
-//   storageBucket: "core-photon-441421-q4.firebasestorage.app",
-//   messagingSenderId: "243546574055",
-//   appId: "1:243546574055:web:3c0f5cb99bca7b0282a642",
-//   measurementId: "G-CZCF42FPP6"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const db = getFirestore(app);
-
-// // Connect to Firestore emulator
-// connectFirestoreEmulator(db, '127.0.0.1', 8080);
-
-// Function to add influencer data to Firestore
-async function addInfluencerToFirestore(influencerData: any) {
-  try {
-    const docRef = await addDoc(collection(db, 'influencers'), influencerData);
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
-// ... existing code ...
-
-// interface influencerData {
-//   firstName: string;
-//   lastName: string;
-//   contact: string;
-//   socialMediaHandles: { platform: string; handle: string }[]
-//   otherSocialMediaHandles: { platform: string; handle: string }[];
-//   tags: string[];
-//   numberOfReviews: number;
-//   starRating: number;
-// }
-
-
+import addInfluencerToFirestore from '../dataApi/addInfluencerToFirestore';
 
 const AddInfluencerPage: React.FC = () => {
   const [influencerData, setInfluencerData] = useState<InfluencerData>({
-    influencerId: 'place_holder_id',
+    influencerId: '',
     firstName: '',
     lastName: '',
     contact: '',
@@ -88,14 +42,14 @@ const AddInfluencerPage: React.FC = () => {
   const updateMediaHandles = (handles: {platform: string, handle: string}[]) => {
     setInfluencerData((prevData) => ({
         ...prevData,
-        socialMediaHandles: handles
+        popularMediaHandles: handles
     }));
   }
   // ------- other social media handles
   const updateOtherMediaHandles = (handles: {platform: string, handle: string}[]) => {
     setInfluencerData((prevData) => ({
         ...prevData,
-        otherSocialMediaHandles: handles
+        otherMediaHandles: handles
     }));
   }
 

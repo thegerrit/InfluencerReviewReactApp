@@ -6,14 +6,12 @@ const queryInfluencers = async (): Promise<InfluencerData[]> => {
   const db = getFirestore();
   const influencersCol = collection(db, 'influencers');
   const influencerSnapshot = await getDocs(influencersCol);
-  const influencerList: InfluencerData[] = influencerSnapshot.docs.map(doc => doc.data() as InfluencerData);
+  const influencerList: InfluencerData[] = influencerSnapshot.docs.map(doc => {
+    const data = doc.data() as InfluencerData;
+    data.influencerId = doc.id;
+    return data;
+  });
   return influencerList;
 };
-
-// queryInfluencers().then(influencers => {
-//   console.log('Influencers:', influencers);
-// }).catch(error => {
-//   console.error('Error querying influencers:', error);
-// });
 
 export {queryInfluencers};

@@ -1,5 +1,5 @@
 import React from 'react';
-import Review from './Review';
+import ReviewComponent from './ReviewComponent';
 import "../styles/common.css";
 
 const BrowsePage: React.FC = () => {
@@ -20,9 +20,9 @@ const BrowsePage: React.FC = () => {
     return (
         <div>
             <h1 className="page-title">Browse Recent Posts</h1>
-            <Review reviewData={sampleReview} />
-            <Review reviewData={sampleReview} />
-            <Review reviewData={sampleReview} />
+            <ReviewComponent reviewData={sampleReview} />
+            <ReviewComponent reviewData={sampleReview} />
+            <ReviewComponent reviewData={sampleReview} />
         </div>
         
     );

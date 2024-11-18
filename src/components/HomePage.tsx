@@ -9,8 +9,8 @@ const HomePage: React.FC = () => {
       className="container my-5 px-3 px-md-5 py-4"
       style={{
         maxWidth: '800px',
-        backgroundColor: 'var(--bs-body-bg)', 
-        color: 'var(--bs-body-color)',
+        // backgroundColor: 'var(--bs-body-bg)', 
+        // color: 'var(--bs-body-color)',
         textAlign: 'center',
       }}
     >
