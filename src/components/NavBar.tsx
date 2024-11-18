@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';  // Add this line
 import '../styles/navbar.css';
+import { auth } from '../utils/FirebaseConfig';
 
 const NavBar: React.FC = () => {
   return (
@@ -41,13 +42,21 @@ const NavBar: React.FC = () => {
             </span>
             <ul className="dropdown-menu dropdown-menu-end">
               <li>
-                <a className="dropdown-item" href="/login">
-                  Log In
+                <a className="dropdown-item" href={`/userProfile?userId=${auth.currentUser?.uid}`}>
+                  User Profile
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="/signup">
-                  Sign Up
+                <a 
+                  className="dropdown-item" 
+                  href="/login" 
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await auth.signOut();
+                    window.location.href = '/login';
+                  }}
+                >
+                  Log Out
                 </a>
               </li>
             </ul>

@@ -1,37 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Review from '../model/Review';
+import fetchUserHandleByUserId from '../dataApi/fetchUserHandleByUserId';
 
 interface ReviewProps {
-  reviewData: {
-    postId: string;
-    userName: string;
-    userId: string;
-    influencerId: string;
-    influencerName: string;
-    isAnonymous: boolean;
-    date: string;
-    upvotes: number;
-    downvotes: number;
-    textContent: string;
-    starRating: number;
-  };
+  reviewData: Review;
 }
 
-const Review: React.FC<ReviewProps> = ({ reviewData }) => {
-  const {
-    userName,
-    influencerName,
-    date,
-    textContent,
-    starRating,
-  } = reviewData;
-
-  // Local state for upvotes, downvotes, and click status
+const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
+  const [userName, setUserName] = useState('');
   const [upvotes, setUpvotes] = useState(reviewData.upvotes);
   const [downvotes, setDownvotes] = useState(reviewData.downvotes);
   const [hasVoted, setHasVoted] = useState(false);
 
-  // Handlers to increment upvotes and downvotes
+  useEffect(() => {
+    fetchUserHandleByUserId(reviewData.userId).then(handle => setUserName(handle));
+  }, [userName]);
+
   const handleUpvote = () => {
     if (!hasVoted) {
       setUpvotes(prev => prev + 1);
@@ -46,12 +31,10 @@ const Review: React.FC<ReviewProps> = ({ reviewData }) => {
     }
   };
 
-  // Format the date to a readable format
-  const formattedDate = new Date(date).toLocaleDateString();
+  const formattedDate = new Date(reviewData.date).toLocaleDateString();
 
   return (
     <div className="p-3 border-bottom">
-      {/* Heading with Username, Influencer, Star Rating, and Date */}
       <div 
         className="d-flex justify-content-between align-items-center p-2"
         style={{ backgroundColor: 'var(--bs-primary-bg-subtle)', color: 'var(--bs-primary-text)' }}
@@ -60,18 +43,17 @@ const Review: React.FC<ReviewProps> = ({ reviewData }) => {
           {userName} <span style={{
             fontWeight:"lighter",
             opacity: "60%"
-          }}>reviewed</span> {influencerName} <br/>
+          }}>reviewed</span> {reviewData.influencerName} <br/>
           <span className="ms-2 text-warning" style={{
             paddingTop: "0.3rem",
             paddingBottom: "0.3rem",
             fontSize: "0.8rem"
-          }}>{"⭐".repeat(starRating)}</span>
+          }}>{"⭐".repeat(reviewData.starRating)}</span>
         </h5>
         <span className="text-muted">{formattedDate}</span>
       </div>
 
-      {/* Review Text */}
-      <p>{textContent}</p>
+      <p>{reviewData.textContent}</p>
 
       {/* Upvotes and Downvotes */}
       <div className="d-flex gap-3 align-items-center">
@@ -104,4 +86,4 @@ const Review: React.FC<ReviewProps> = ({ reviewData }) => {
   );
 };
 
-export default Review;
+export default ReviewComponent;

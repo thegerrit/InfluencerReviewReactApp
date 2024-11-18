@@ -1,52 +1,23 @@
 import React, { useState } from 'react';
-import Review from './Review'; 
+import ReviewComponent from './ReviewComponent'; 
 import WriteReviewComponent from './WriteReviewComponent';
 import InfluencerData from '../model/InfluencerData';
-// interface MediaHandle {
-//   platform: string;
-//   handle: string;
-// }
-
-// interface InfluencerData {
-//   influencerId: string;
-//   firstName: string;
-//   lastName: string;
-//   starRating: number;
-//   popularMediaHandles: MediaHandle[];
-//   otherMediaHandles: MediaHandle[];
-//   listOfPosts: string[];
-//   tags: string[];
-//   numberOfReviews: number;
-// }
+import Review from '../model/Review';
+// import Loading from './Loading';
 
 interface InfluencerDetailsProps {
-  influencer: InfluencerData;
+    influencer: InfluencerData;
+    reviews: Review[];
+    // isLoading: boolean;
 }
 
-const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencer }) => {
+const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencer, reviews }) => {
   const fullName = `${influencer.firstName} ${influencer.lastName}`.trim();
-
-  // Function to return hardcoded review objects
-  const getSampleReviews = () => {
-    const sampleReview = {
-      postId: "98765",
-      userName: "hannable",
-      userId: "12345",
-      influencerId: influencer.influencerId,
-      influencerName: fullName,
-      isAnonymous: false,
-      date: "2024-11-08T14:30:00Z",
-      upvotes: 120,
-      downvotes: 5,
-      textContent: "A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...A banana is an elongated, edible fruit – botanically a berry[1] – produced by several kinds of large herbaceous flowering plants in the genus Musa...",
-      starRating: 4
-    };
-    return [sampleReview, sampleReview];
-  };
-
-  const reviews = getSampleReviews();
-
   const [showWriteReview, setShowWriteReview] = useState(false);
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="container py-4">
@@ -120,13 +91,13 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencer }) => 
             <h2 className="h5 mb-3">Reviews</h2>
             <div className="p-4 rounded" style={{ backgroundColor: 'var(--bs-body-bg)', color: 'var(--bs-body-color)' }}>
               {reviews.map((review, index) => (
-                <Review key={index} reviewData={review} />
+                <ReviewComponent key={index} reviewData={review} />
               ))}
             </div>
           </div>)}
 
           {showWriteReview && (
-            <WriteReviewComponent influencerId={influencer.influencerId} cancel={() => setShowWriteReview(false)}/>
+            <WriteReviewComponent influencerId={influencer.influencerId} influencerName={fullName} cancel={() => setShowWriteReview(false)}/>
           )}
         </div>
       </div>

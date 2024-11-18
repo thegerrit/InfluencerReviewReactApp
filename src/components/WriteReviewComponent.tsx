@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/WriteReviewComponent.css';
+import Review from '../model/Review';
+import writeReviewToFirestore from '../dataApi/WriteReview';
+import { auth } from '../utils/FirebaseConfig';
 
 interface WriteReviewProps {
   influencerId: string;
+  influencerName: string;
   cancel: () => void;
 }
 
-const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, cancel }) => {
+const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influencerName, cancel }) => {
   const [starRating, setStarRating] = useState<number>(0);
   const [reviewText, setReviewText] = useState<string>('');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const formData = {
-      starRating,
-      reviewText,
-      influencerId,
+    const formData: Review = {
+      postId: "",
+      userName: auth.currentUser?.displayName || "",
+      userId: auth.currentUser?.uid || "",
+      influencerId: influencerId,
+      influencerName: influencerName,
+      isAnonymous: false,
+      date: new Date().toISOString(),
+      upvotes: 0,
+      downvotes: 0,
+      textContent: reviewText,
+      starRating: starRating
     };
     console.log(formData);
+    writeReviewToFirestore(formData, influencerId).then(() => {
+      window.location.reload();
+    });
   };
 
   return (
@@ -47,7 +62,7 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, cancel
             />
           </label>
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
         <button type="button" className="btn btn-secondary" onClick={cancel}>Cancel</button>
       </form>
     </div>
