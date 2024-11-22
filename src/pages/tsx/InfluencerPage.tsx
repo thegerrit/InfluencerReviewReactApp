@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import AppContainer from '../../utils/AppContainer.tsx'
 import InfluencerDetails from '../../components/InfluencerDetails.tsx';
-import InfluencerData from '../../model/InfluencerData.tsx';
+import InfluencerData from '../../model/WriteInfluencerData.tsx';
 import GetInfluencerById from '../../dataApi/GetInfluencerById.tsx';
 import Review from '../../model/Review.tsx';
 import GetReviewsByInfluencerId from '../../dataApi/GetReviewsByInfluencerId.tsx';
@@ -13,6 +13,7 @@ import Loading from '../../components/Loading.tsx';
 const InfluencerPage: React.FC = () => {
   const [influencer, setInfluencer] = useState<InfluencerData | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [_influencerId, set_InfluencerId] = useState<string>('');
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -22,6 +23,7 @@ const InfluencerPage: React.FC = () => {
       if (id) {
         const fetchedInfluencer = await GetInfluencerById(id);
         setInfluencer(fetchedInfluencer);
+        set_InfluencerId(id);
       }
     };
 
@@ -42,7 +44,7 @@ const InfluencerPage: React.FC = () => {
 
   return (
     <StrictMode>
-      <AppContainer ComponentProp={<InfluencerDetails influencer={influencer} reviews={reviews}/>} />
+      <AppContainer ComponentProp={<InfluencerDetails influencerId={_influencerId} influencer={influencer} reviews={reviews}/>} />
     </StrictMode>
   );
 };

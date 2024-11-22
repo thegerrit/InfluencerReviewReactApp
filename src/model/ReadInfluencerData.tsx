@@ -1,6 +1,6 @@
 import MediaHandle from './MediaHandle';
 
-interface InfluencerData {
+interface ReadInfluencerData {
     influencerId: string;
     firstName: string;
     lastName: string;
@@ -12,4 +12,4 @@ interface InfluencerData {
     tags: string[];
 }
 
-export default InfluencerData;
+export default ReadInfluencerData;

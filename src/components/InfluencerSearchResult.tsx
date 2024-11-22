@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/InfluencerSearchResult.css';
-import InfluencerData from '../model/InfluencerData';
+import ReadInfluencerData from '../model/ReadInfluencerData';
 
 interface InfluencerSearchResultProps {
-  influencer: InfluencerData;
+  influencer: ReadInfluencerData;
 }
 
 const InfluencerSearchResult: React.FC<InfluencerSearchResultProps> = ({ influencer }) => {
@@ -42,7 +42,7 @@ const InfluencerSearchResult: React.FC<InfluencerSearchResultProps> = ({ influen
               marginBottom: '4px',
             }}
           >
-            ⭐ {influencer.starRating} 
+            ⭐ {influencer.starRating.toFixed(2)} 
           </span>
           <small className="text-muted" style={{ fontSize: '1rem' }}>
             {influencer.numberOfReviews}

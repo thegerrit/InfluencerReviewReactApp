@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import ReviewComponent from './ReviewComponent'; 
 import WriteReviewComponent from './WriteReviewComponent';
-import InfluencerData from '../model/InfluencerData';
+import InfluencerData from '../model/WriteInfluencerData';
 import Review from '../model/Review';
 // import Loading from './Loading';
 
 interface InfluencerDetailsProps {
+    influencerId: string;
     influencer: InfluencerData;
     reviews: Review[];
     // isLoading: boolean;
 }
 
-const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencer, reviews }) => {
+const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, influencer, reviews }) => {
   const fullName = `${influencer.firstName} ${influencer.lastName}`.trim();
   const [showWriteReview, setShowWriteReview] = useState(false);
 
@@ -97,7 +98,7 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencer, revie
           </div>)}
 
           {showWriteReview && (
-            <WriteReviewComponent influencerId={influencer.influencerId} influencerName={fullName} cancel={() => setShowWriteReview(false)}/>
+            <WriteReviewComponent influencerId={influencerId} influencerName={fullName} cancel={() => setShowWriteReview(false)}/>
           )}
         </div>
       </div>
