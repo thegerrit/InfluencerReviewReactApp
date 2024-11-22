@@ -5,6 +5,7 @@ import User from '../model/User';
 
 const SetDisplayNameComponent: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
+  const [contactEmail, setContactEmail] = useState(auth.currentUser?.email || '');
   const [responseMessage, setResponseMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -13,7 +14,7 @@ const SetDisplayNameComponent: React.FC = () => {
     const response = await createOrUpdateUser({
         uid: auth.currentUser?.uid,
         userHandle: displayName,
-        email: auth.currentUser?.email || ''
+        email: contactEmail
     } as User);
     const [status, message] = response || ["", ""];
     if (status === "0") {
@@ -37,6 +38,17 @@ const SetDisplayNameComponent: React.FC = () => {
             className="form-control"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group mb-3">
+          <label htmlFor="contactEmail">Contact Email (optional):</label>
+          <input
+            type="email"
+            id="contactEmail"
+            className="form-control"
+            value={contactEmail}
+            onChange={(e) => setContactEmail(e.target.value)}
             required
           />
         </div>

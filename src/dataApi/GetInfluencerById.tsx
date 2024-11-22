@@ -16,6 +16,7 @@ async function getInfluencerById(id: string): Promise<InfluencerData | null> {
   if (docSnap.exists()) {
     const influencerData = docSnap.data() as InfluencerData;
     influencerData.influencerId = id;
+    console.log(influencerData);
     return influencerData;
   } else {
     console.log("No such document!");

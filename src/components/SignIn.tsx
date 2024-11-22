@@ -69,10 +69,11 @@ const SignIn: React.FC = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary w-100">Sign In with Email</button>
-      </form>
-      <div className="text-center mt-3">
-        <button onClick={handleGoogleSignIn} className="btn btn-danger w-100">Sign In with Google</button>
+        <div className="text-center mt-3">
+        <button onClick={handleGoogleSignIn} className="btn btn-primary w-100">Sign In with Google</button>
       </div>
+      </form>
+      
     </div>
   );
 };
