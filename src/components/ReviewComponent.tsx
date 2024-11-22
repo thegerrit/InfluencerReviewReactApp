@@ -1,33 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Review from '../model/Review';
-import fetchUserHandleByUserId from '../dataApi/fetchUserHandleByUserId';
-
+import { fetchUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
+import voteOnReview from '../dataApi/voteOnReview';
+import fetchVoteDetailsByReviewId from '../dataApi/fetchVoteDetailsByReviewId';
+import { auth } from '../utils/FirebaseConfig';
+// import VoteDetails from '../model/VoteDetails';
 interface ReviewProps {
   reviewData: Review;
 }
 
 const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
   const [userName, setUserName] = useState('');
-  const [upvotes, setUpvotes] = useState(reviewData.upvotes);
-  const [downvotes, setDownvotes] = useState(reviewData.downvotes);
+  const [upvotes, setUpvotes] = useState(0);
+  const [downvotes, setDownvotes] = useState(0);
   const [hasVoted, setHasVoted] = useState(false);
-
+  const currentUserId = auth.currentUser?.uid ?? '';
+  
   useEffect(() => {
-    fetchUserHandleByUserId(reviewData.userId).then(handle => setUserName(handle));
-  }, [userName]);
+    //TODO: refactor this so it only fetches user handle and doesn't make lots of calls to db
+    fetchUserDataByUserId(reviewData.userId).then(  userData => {
+      if (userData) {
+        setUserName(userData.userHandle);
+      }
+    });
+    fetchVoteDetailsByReviewId(reviewData.influencerId, reviewData.postId).then((voteDetails) => {
+      setDownvotes(voteDetails?.downvotes ?? 0);
+      setUpvotes(voteDetails?.upvotes ?? 0);
+      setHasVoted(voteDetails?.hasVoted ?? false);
+    });
+  }, [userName, upvotes, downvotes, hasVoted]);
 
   const handleUpvote = () => {
     if (!hasVoted) {
-      setUpvotes(prev => prev + 1);
+      setUpvotes((prev: number) => prev + 1);
       setHasVoted(true);
+      voteOnReview(reviewData.influencerId, reviewData.postId, currentUserId, true);
     }
   };
 
   const handleDownvote = () => {
     if (!hasVoted) {
-      setDownvotes(prev => prev + 1);
+      setDownvotes((prev: number) => prev + 1);
       setHasVoted(true);
+      voteOnReview(reviewData.influencerId, reviewData.postId, currentUserId, false);
     }
   };
 

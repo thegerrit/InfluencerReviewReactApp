@@ -18,17 +18,15 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const formData: Review = {
-      postId: "",
-      userName: auth.currentUser?.displayName || "",
+      postId: "", //TODO: remove this field and just read the pk from the firestore
+      //TODO: make user context and replace this with userHandle
       userId: auth.currentUser?.uid || "",
       influencerId: influencerId,
       influencerName: influencerName,
       isAnonymous: false,
       date: new Date().toISOString(),
-      upvotes: 0,
-      downvotes: 0,
       textContent: reviewText,
-      starRating: starRating
+      starRating: starRating,
     };
     console.log(formData);
     writeReviewToFirestore(formData, influencerId).then(() => {
