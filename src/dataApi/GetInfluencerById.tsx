@@ -1,20 +1,13 @@
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import InfluencerData from "../model/InfluencerData";
+import ReadInfluencerData from "../model/ReadInfluencerData";
 
-// interface InfluencerData {
-//   id: string;
-//   name: string;
-//   followers: number;
-//   // Add other fields as necessary
-// }
-
-async function getInfluencerById(id: string): Promise<InfluencerData | null> {
+async function getInfluencerById(id: string): Promise<ReadInfluencerData | null> {
   const db = getFirestore();
   const docRef = doc(db, "influencers", id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    const influencerData = docSnap.data() as InfluencerData;
+    const influencerData = docSnap.data() as ReadInfluencerData;
     influencerData.influencerId = id;
     console.log(influencerData);
     return influencerData;

@@ -2,7 +2,6 @@ import { collection, doc } from 'firebase/firestore';
 import { getDoc } from 'firebase/firestore';
 import { setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../utils/FirebaseConfig';
-// import { updateProfile } from 'firebase/auth';
 import User from '../model/User';
 import { isUserHandleInUse } from './IsUserHandleInUse';
 
@@ -13,10 +12,6 @@ const createOrUpdateUser = async (FBuser: User) => {
         } else if (await isUserHandleInUse(FBuser.userHandle)) {
             return ["1", "This display name is already in use. Please choose another one."];
         }
-        //update firebase auth display name
-        // await updateProfile(auth.currentUser, { displayName: FBuser.userHandle,
-        //     email: FBuser.email
-        //  });
 
         //check if user document exists, if not, create it
         const userDocRef = doc(collection(db, 'users'), auth.currentUser.uid);

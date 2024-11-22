@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import TagsInputForm from './TagsInputForm';
 import OtherSocialMediaForm from './OtherSocialMediaForm';
 import SocialMediaForm from './SocialMediaForm';
-import InfluencerData from '../model/InfluencerData';
+import InfluencerData from '../model/WriteInfluencerData';
 import addInfluencerToFirestore from '../dataApi/addInfluencerToFirestore';
 
 const AddInfluencerPage: React.FC = () => {
   const [influencerData, setInfluencerData] = useState<InfluencerData>({
-    influencerId: '',
     firstName: '',
     lastName: '',
     contact: '',
-    starRating: -1,
+    starRating: 0,
     popularMediaHandles: [],
     otherMediaHandles: [],
     numberOfReviews: 0,
@@ -34,9 +33,6 @@ const AddInfluencerPage: React.FC = () => {
       });
     }
   };
-
-  
-
   // Functions to update parent component state from children
   //-------- social media handles
   const updateMediaHandles = (handles: {platform: string, handle: string}[]) => {
@@ -72,6 +68,14 @@ const AddInfluencerPage: React.FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log('Form Data:', influencerData);
+    addInfluencerToFirestore(influencerData).then((newInfluencerId: string) => {
+      //navigate to influencer page
+      if (newInfluencerId !== "") {
+        window.location.href = `/influencer?id=${newInfluencerId}`;
+      }
+    }).catch((error) => {
+      console.error("Error adding influencer to Firestore: ", error);
+    });
   };
 
   return (
@@ -127,7 +131,7 @@ const AddInfluencerPage: React.FC = () => {
 
         {/* Submit button */}
         <div className="mt-4">
-          <button type="submit" className="btn btn-primary" onClick={() => addInfluencerToFirestore(influencerData)}>
+          <button type="submit" className="btn btn-primary">
             Submit Form
           </button>
         </div>
