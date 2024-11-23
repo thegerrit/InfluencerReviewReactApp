@@ -7,8 +7,8 @@ const fetchUserDataByUserId = async (userId: string) => {
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists()) {
-        console.log("User ID exists");
-        console.log(userSnap.data());
+        // console.log("User ID exists");
+        // console.log(userSnap.data());
         return userSnap.data() as User;
     } else {
         console.log("User ID does not exist");

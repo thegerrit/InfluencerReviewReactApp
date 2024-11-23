@@ -47,6 +47,11 @@ const NavBar: React.FC = () => {
                 </a>
               </li>
               <li>
+                <a className="dropdown-item" href="/reviewHistory">
+                  Your Reviews
+                </a>
+              </li>
+              <li>
                 <a 
                   className="dropdown-item" 
                   href="/login" 
