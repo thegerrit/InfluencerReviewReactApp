@@ -20,6 +20,7 @@ export default defineConfig({
         AddInfluencer: resolve(__dirname, 'src/pages/html/AddInfluencer.html'), // Entry point for "pages/addInfluencer.html" 
         userProfile: resolve(__dirname, 'src/pages/html/userProfile.html'), // Entry point for "pages/addInfluencer.html" 
         setDisplayName: resolve(__dirname, 'src/pages/html/setDisplayName.html'), // Entry point for "pages/setDisplayName.html" 
+        reviewHistory: resolve(__dirname, 'src/pages/html/reviewHistory.html'), // Entry point for "pages/reviewHistory.html" 
       }
 
     }
