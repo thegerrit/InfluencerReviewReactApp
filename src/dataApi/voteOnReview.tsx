@@ -1,5 +1,6 @@
 import { getFirestore, doc, getDoc, collection, addDoc } from "firebase/firestore";
 
+//TODO: refactor
 const voteOnReview = async (influencerId: string, reviewId: string, userId: string, isUpvote: boolean) => {
     const db = getFirestore();
     const influencerDocRef = doc(db, "influencers", influencerId);

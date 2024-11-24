@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Review from '../model/Review';
 import { fetchUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
 import voteOnReview from '../dataApi/voteOnReview';
-import fetchVoteDetailsByReviewId from '../dataApi/fetchVoteDetailsByReviewId';
+// import fetchVoteDetailsByReviewId from '../dataApi/fetchVoteDetailsByReviewId';
 import { auth } from '../utils/FirebaseConfig';
 // import VoteDetails from '../model/VoteDetails';
 interface ReviewProps {
@@ -24,11 +24,11 @@ const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
         setUserName(userData.userHandle);
       }
     });
-    fetchVoteDetailsByReviewId(reviewData.influencerId, reviewData.postId).then((voteDetails) => {
-      setDownvotes(voteDetails?.downvotes ?? 0);
-      setUpvotes(voteDetails?.upvotes ?? 0);
-      setHasVoted(voteDetails?.hasVoted ?? false);
-    });
+    // fetchVoteDetailsByReviewId(reviewData.influencerId, reviewData.postId).then((voteDetails) => {
+    //   setDownvotes(voteDetails?.downvotes ?? 0);
+    //   setUpvotes(voteDetails?.upvotes ?? 0);
+    //   setHasVoted(voteDetails?.hasVoted ?? false);
+    // });
   }, [userName, upvotes, downvotes, hasVoted]);
 
   const handleUpvote = () => {

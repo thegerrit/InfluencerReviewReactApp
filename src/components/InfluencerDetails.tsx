@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import ReviewComponent from './ReviewComponent'; 
+// import ReviewComponent from './ReviewComponent'; 
 import WriteReviewComponent from './WriteReviewComponent';
 import InfluencerData from '../model/WriteInfluencerData';
-import Review from '../model/Review';
+// import Review from '../model/Review';
+import PaginatedReviews from './PaginatedReviews';
 // import Loading from './Loading';
 
 interface InfluencerDetailsProps {
     influencerId: string;
     influencer: InfluencerData;
-    reviews: Review[];
+    // reviews: Review[];
     // isLoading: boolean;
 }
 
-const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, influencer, reviews }) => {
+const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, influencer }) => {
   const fullName = `${influencer.firstName} ${influencer.lastName}`.trim();
   const [showWriteReview, setShowWriteReview] = useState(false);
 
@@ -90,11 +91,12 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
           {!showWriteReview && (
           <div className="mt-4">
             <h2 className="h5 mb-3">Reviews</h2>
-            <div className="p-4 rounded" style={{ backgroundColor: 'var(--bs-body-bg)', color: 'var(--bs-body-color)' }}>
+            {/* <div className="p-4 rounded" style={{ backgroundColor: 'var(--bs-body-bg)', color: 'var(--bs-body-color)' }}>
               {reviews.map((review, index) => (
                 <ReviewComponent key={index} reviewData={review} />
               ))}
-            </div>
+            </div> */}
+            <PaginatedReviews queryBy="influencerId" queryValue={influencerId} />
           </div>)}
 
           {showWriteReview && (

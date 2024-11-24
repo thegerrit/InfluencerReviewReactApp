@@ -7,14 +7,14 @@ const runningAverage = (oldAverage: number, starRating: number, numberOfReviews:
 
 const writeReviewToFirestore = async (review: Review, influencerId: string) => {
   const db = getFirestore();
-  const influencerDocRef = doc(collection(db, "influencers"), influencerId);
-  const reviewsCollectionRef = collection(influencerDocRef, "reviews");
+  const reviewsCollectionRef = collection(db, "reviews");
+  const influencerDocRef = doc(db, "influencers", influencerId);
 
   try {
     await runTransaction(db, async (transaction) => {
       const influencerDocSnapshot = await transaction.get(influencerDocRef);
       const influencerData = influencerDocSnapshot.data();
-
+      console.log("INFLUENCER DATA: ", influencerData);
       if (influencerData) {
         // create the review
         const reviewDocRef = doc(reviewsCollectionRef);
@@ -27,13 +27,14 @@ const writeReviewToFirestore = async (review: Review, influencerId: string) => {
         });
 
         // add a record of the review to the user's reviewHistoryCollection
-        const userReviewHistoryCollectionRef = collection(doc(collection(db, "users"), review.userId), "reviewHistory");
-        const userReviewHistoryDocRef = doc(userReviewHistoryCollectionRef);
-        transaction.set(userReviewHistoryDocRef, {
-          influencerId: influencerDocRef.id,
-          postId: reviewDocRef.id,
-          date: new Date()
-        });
+        // the flat structure for reviews means this is not needed
+        // const userReviewHistoryCollectionRef = collection(doc(collection(db, "users"), review.userId), "reviewHistory");
+        // const userReviewHistoryDocRef = doc(userReviewHistoryCollectionRef);
+        // transaction.set(userReviewHistoryDocRef, {
+        //   influencerId: influencerDocRef.id,
+        //   postId: reviewDocRef.id,
+        //   date: new Date()
+        // });
       } else {
         throw new Error("Influencer data is undefined");
       }

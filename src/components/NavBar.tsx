@@ -47,7 +47,7 @@ const NavBar: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="/reviewHistory">
+                <a className="dropdown-item" href={`/reviewHistory?userId=${auth.currentUser?.uid}`}>
                   Your Reviews
                 </a>
               </li>

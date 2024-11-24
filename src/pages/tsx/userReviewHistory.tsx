@@ -4,12 +4,12 @@ import { createRoot } from 'react-dom/client';
 import  AppContainer  from '../../utils/AppContainer';
 // import UserReviewHistoryComponent from '../../components/UserReviewHistoryComponent';
 // import UserHistoryPageComponent from '../../components/UserHistoryPageComponent';
-import UserReviewHistoryComponent from '../../components/UserReviewHistoryComponent';
+import UserReviewsComponent from '../../components/UserReviewsComponent';
 // ReactDOM.render(<Browse />, document.getElementById('root'));
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <AppContainer ComponentProp={<UserReviewHistoryComponent />}/>
+      <AppContainer ComponentProp={<UserReviewsComponent />}/>
       {/* <NoAuthAppContainer ComponentProp={<UserReviewHistoryComponent />}/> */}
     </StrictMode>,
   );
