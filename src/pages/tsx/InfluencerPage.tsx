@@ -4,15 +4,15 @@ import AppContainer from '../../utils/AppContainer.tsx'
 import InfluencerDetails from '../../components/InfluencerDetails.tsx';
 import InfluencerData from '../../model/WriteInfluencerData.tsx';
 import GetInfluencerById from '../../dataApi/GetInfluencerById.tsx';
-import Review from '../../model/Review.tsx';
-import GetReviewsByInfluencerId from '../../dataApi/GetReviewsByInfluencerId.tsx';
+// import Review from '../../model/Review.tsx';
+// import GetReviewsByInfluencerId from '../../dataApi/GetReviewsByInfluencerId.tsx';
 
 import { useEffect, useState } from 'react';
 import Loading from '../../components/Loading.tsx';
 
 const InfluencerPage: React.FC = () => {
   const [influencer, setInfluencer] = useState<InfluencerData | null>(null);
-  const [reviews, setReviews] = useState<Review[]>([]);
+  // const [reviews, setReviews] = useState<Review[]>([]);
   const [_influencerId, set_InfluencerId] = useState<string>('');
 
   useEffect(() => {
@@ -27,15 +27,15 @@ const InfluencerPage: React.FC = () => {
       }
     };
 
-    const fetchReviews = async () => {
-      if (id) {
-        const fetchedReviews = await GetReviewsByInfluencerId(id);
-        setReviews(fetchedReviews);
-      }
-    };
+    // const fetchReviews = async () => {
+    //   if (id) {
+    //     const fetchedReviews = await GetReviewsByInfluencerId(id);
+    //     setReviews(fetchedReviews);
+    //   }
+    // };
 
     fetchInfluencer();
-    fetchReviews();
+    // fetchReviews();
   }, []);
 
   if (!influencer) {
@@ -44,7 +44,7 @@ const InfluencerPage: React.FC = () => {
 
   return (
     <StrictMode>
-      <AppContainer ComponentProp={<InfluencerDetails influencerId={_influencerId} influencer={influencer} reviews={reviews}/>} />
+      <AppContainer ComponentProp={<InfluencerDetails influencerId={_influencerId} influencer={influencer}/>} />
     </StrictMode>
   );
 };
