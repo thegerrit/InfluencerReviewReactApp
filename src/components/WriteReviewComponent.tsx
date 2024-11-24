@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/WriteReviewComponent.css';
-import Review from '../model/Review';
+import { WriteReview } from '../model/Review';
 import writeReviewToFirestore from '../dataApi/WriteReview';
 import { auth } from '../utils/FirebaseConfig';
 
@@ -17,9 +17,7 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const formData: Review = {
-      postId: "", //TODO: remove this field and just read the pk from the firestore
-      //TODO: make user context and replace this with userHandle
+    const formData: WriteReview = {
       userId: auth.currentUser?.uid || "",
       influencerId: influencerId,
       influencerName: influencerName,

@@ -1,5 +1,5 @@
 import { collection, DocumentSnapshot, endBefore, getDocs, limit, limitToLast, orderBy, Query, query, QueryFieldFilterConstraint, QuerySnapshot, startAfter, where } from "firebase/firestore";
-import Review from "../model/Review";
+import { Review } from "../model/Review";
 import { db } from "../utils/FirebaseConfig";
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Review from '../model/Review';
+import { Review } from '../model/Review';
 import { fetchUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
 import voteOnReview from '../dataApi/voteOnReview';
 // import fetchVoteDetailsByReviewId from '../dataApi/fetchVoteDetailsByReviewId';
@@ -12,8 +12,8 @@ interface ReviewProps {
 
 const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
   const [userName, setUserName] = useState('');
-  const [upvotes, setUpvotes] = useState(0);
-  const [downvotes, setDownvotes] = useState(0);
+  const [upvotes, setUpvotes] = useState(reviewData.upvotes);
+  const [downvotes, setDownvotes] = useState(reviewData.downvotes);
   const [hasVoted, setHasVoted] = useState(false);
   const currentUserId = auth.currentUser?.uid ?? '';
   

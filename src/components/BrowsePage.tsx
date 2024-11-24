@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "../styles/common.css";
 import getSampleReviews from '../dataApi/getSampleReviews';
 import ReviewComponent from './ReviewComponent';
-import Review from '../model/Review';
+import { Review } from '../model/Review';
 
 const BrowsePage: React.FC = () => {
     const [sampleReviews, setSampleReviews] = useState<Review[]>([]);

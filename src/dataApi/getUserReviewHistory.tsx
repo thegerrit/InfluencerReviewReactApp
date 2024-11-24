@@ -1,5 +1,5 @@
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import Review from "../model/Review";
+import { Review } from "../model/Review";
 import { db } from "../utils/FirebaseConfig";
 
 const getUserReviewHistory = async (userId: string): Promise<Review[]> => {

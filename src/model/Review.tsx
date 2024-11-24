@@ -1,5 +1,5 @@
-interface Review {
-  postId: string;
+interface WriteReview {
+  // postId: string;
   userId: string;
   // userName: string;
   influencerId: string;
@@ -12,4 +12,11 @@ interface Review {
   // downvotes: number;
 }
 
-export default Review;
+interface Review extends WriteReview {
+  postId: string;
+  userName: string;
+  upvotes: number; 
+  downvotes: number;
+}
+
+export type{ WriteReview, Review };
