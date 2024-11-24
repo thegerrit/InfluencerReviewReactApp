@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getReviewsWithPagination } from "../dataApi/GetReviewsByInfluencerId";
 import  ReviewComponent  from "./ReviewComponent";
 import { DocumentSnapshot, QuerySnapshot, where } from "firebase/firestore";
-import Review from '../model/Review';
+import {Review} from '../model/Review';
 interface PaginatedReviewsProps {
     queryBy: "influencerId" | "userId";
     queryValue: string;

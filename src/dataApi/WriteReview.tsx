@@ -1,11 +1,11 @@
 import { getFirestore, collection, doc, increment, runTransaction } from "firebase/firestore"; 
-import Review from "../model/Review";
+import {WriteReview} from "../model/Review";
 
 const runningAverage = (oldAverage: number, starRating: number, numberOfReviews: number) => {
   return ((oldAverage * numberOfReviews) + starRating) / (numberOfReviews + 1);
 }
 
-const writeReviewToFirestore = async (review: Review, influencerId: string) => {
+const writeReviewToFirestore = async (review: WriteReview, influencerId: string) => {
   const db = getFirestore();
   const reviewsCollectionRef = collection(db, "reviews");
   const influencerDocRef = doc(db, "influencers", influencerId);
@@ -16,9 +16,15 @@ const writeReviewToFirestore = async (review: Review, influencerId: string) => {
       const influencerData = influencerDocSnapshot.data();
       console.log("INFLUENCER DATA: ", influencerData);
       if (influencerData) {
+        const userDisplayName = await transaction.get(doc(db, "users", review.userId))
         // create the review
         const reviewDocRef = doc(reviewsCollectionRef);
-        transaction.set(reviewDocRef, review);
+        transaction.set(reviewDocRef, {
+          ...review,
+          upvotes: 0,
+          downvotes: 0,
+          userName: userDisplayName.data()?.userHandle
+        });
 
         // update the influencer document with the average rating and number of reviews
         transaction.update(influencerDocRef, {
@@ -26,15 +32,6 @@ const writeReviewToFirestore = async (review: Review, influencerId: string) => {
           numberOfReviews: increment(1)
         });
 
-        // add a record of the review to the user's reviewHistoryCollection
-        // the flat structure for reviews means this is not needed
-        // const userReviewHistoryCollectionRef = collection(doc(collection(db, "users"), review.userId), "reviewHistory");
-        // const userReviewHistoryDocRef = doc(userReviewHistoryCollectionRef);
-        // transaction.set(userReviewHistoryDocRef, {
-        //   influencerId: influencerDocRef.id,
-        //   postId: reviewDocRef.id,
-        //   date: new Date()
-        // });
       } else {
         throw new Error("Influencer data is undefined");
       }
