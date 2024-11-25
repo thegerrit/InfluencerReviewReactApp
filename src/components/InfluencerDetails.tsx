@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 // import ReviewComponent from './ReviewComponent'; 
 import WriteReviewComponent from './WriteReviewComponent';
-import InfluencerData from '../model/WriteInfluencerData';
+import InfluencerData from '../model/ReadInfluencerData';
 // import Review from '../model/Review';
 import PaginatedReviews from './PaginatedReviews';
 // import Loading from './Loading';
+import { PLATFORMS } from '../utils/Constants';
 
 interface InfluencerDetailsProps {
     influencerId: string;
@@ -12,6 +13,7 @@ interface InfluencerDetailsProps {
     // reviews: Review[];
     // isLoading: boolean;
 }
+
 
 const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, influencer }) => {
   const fullName = `${influencer.firstName} ${influencer.lastName}`.trim();
@@ -38,12 +40,18 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
           <div className="mb-4">
             <h2 className="h5 mb-3">Popular Platforms</h2>
             <div className="row">
-              {influencer.popularMediaHandles.map((handle, index) => (
-                <div key={index} className="col-md-6 d-flex align-items-center mb-2">
-                  <span className="fw-medium text-capitalize">{handle.platform}:</span>
-                  <span className="ms-2">{handle.handle}</span>
-                </div>
-              ))}
+              {PLATFORMS.map((platform) => {
+                const platformKey = platform.toLowerCase() as keyof InfluencerData;
+                if (influencer[platformKey]) {
+                  return (
+                    <div className="col-md-6 d-flex align-items-center mb-2" key={platform}>
+                      <span className="fw-medium text-capitalize">{platform}:</span>
+                      <span className="ms-2">{typeof influencer[platformKey] === 'string' || typeof influencer[platformKey] === 'number' ? influencer[platformKey] : ''}</span>
+                    </div>
+                  );
+                }
+                // return null;
+              })}
             </div>
           </div>
 

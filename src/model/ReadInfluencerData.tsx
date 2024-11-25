@@ -6,10 +6,18 @@ interface ReadInfluencerData {
     lastName: string;
     contact: string;
     starRating: number;
-    popularMediaHandles: MediaHandle[];
+    // popularMediaHandles: MediaHandle[];
     otherMediaHandles: MediaHandle[];
     numberOfReviews: number;
     tags: string[];
+    instagram?: string;
+    facebook?: string;
+    tiktok?: string;
+    youtube?: string;
+    snapchat?: string;
+    x?: string;
+    threads?: string;
+    linkedin?: string; 
 }
 
 export default ReadInfluencerData;

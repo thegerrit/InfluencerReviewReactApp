@@ -5,9 +5,10 @@ import ReadInfluencerData from '../model/ReadInfluencerData';
 
 interface InfluencerSearchResultProps {
   influencer: ReadInfluencerData;
+  searchField: string;
 }
 
-const InfluencerSearchResult: React.FC<InfluencerSearchResultProps> = ({ influencer }) => {
+const InfluencerSearchResult: React.FC<InfluencerSearchResultProps> = ({ influencer, searchField }) => {
   const [showAllTags, setShowAllTags] = useState(false);
   
   const handleToggleTags = () => setShowAllTags(!showAllTags);
@@ -59,11 +60,12 @@ const InfluencerSearchResult: React.FC<InfluencerSearchResultProps> = ({ influen
           <strong >Popular Media:</strong>
 
           <ul className="list-unstyled mb-0">
-            {influencer.popularMediaHandles.map((handle, index) => (
-              <li key={index} className="text-muted">
-                {handle.platform}: @{handle.handle}
-              </li>
-            ))}
+            
+            <li className="text-muted">
+              {(typeof influencer[searchField as keyof ReadInfluencerData] === 'string' || typeof influencer[searchField as keyof ReadInfluencerData] === 'number') ?
+               String(influencer[searchField as keyof ReadInfluencerData]) : ''}
+            </li>
+            
           </ul>
         </div>
 

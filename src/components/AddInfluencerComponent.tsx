@@ -2,23 +2,24 @@ import React, { useState } from 'react';
 import TagsInputForm from './TagsInputForm';
 import OtherSocialMediaForm from './OtherSocialMediaForm';
 import SocialMediaForm from './SocialMediaForm';
-import InfluencerData from '../model/WriteInfluencerData';
+import WriteInfluencerData from '../model/WriteInfluencerData';
 import addInfluencerToFirestore from '../dataApi/addInfluencerToFirestore';
+import { PLATFORMS } from '../utils/Constants';
+import convertFieldsToLowercase from '../utils/Normalization';
 
 const AddInfluencerPage: React.FC = () => {
-  const [influencerData, setInfluencerData] = useState<InfluencerData>({
+  const [influencerData, setInfluencerData] = useState<WriteInfluencerData>({
     firstName: '',
     lastName: '',
     contact: '',
     starRating: 0,
-    popularMediaHandles: [],
     otherMediaHandles: [],
     numberOfReviews: 0,
     tags: []
   });
 
   //function to update Text input fields
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof InfluencerData, index?: number) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof WriteInfluencerData, index?: number) => {
     if (index !== undefined && Array.isArray(influencerData[field])) {
       const updatedArray = [...(influencerData[field] as string[])];
       updatedArray[index] = e.target.value;
@@ -36,10 +37,14 @@ const AddInfluencerPage: React.FC = () => {
   // Functions to update parent component state from children
   //-------- social media handles
   const updateMediaHandles = (handles: {platform: string, handle: string}[]) => {
-    setInfluencerData((prevData) => ({
-        ...prevData,
-        popularMediaHandles: handles
-    }));
+    for (const handle of handles) {
+      if (handle.handle !== "" && PLATFORMS.includes(handle.platform)) {
+        setInfluencerData((prevData) => ({
+            ...prevData,
+          [handle.platform.toLowerCase()]: handle.handle
+        }));
+      }
+    }
   }
   // ------- other social media handles
   const updateOtherMediaHandles = (handles: {platform: string, handle: string}[]) => {
@@ -63,12 +68,14 @@ const AddInfluencerPage: React.FC = () => {
       tags: prevData.tags.filter((_, i) => i !== index),
     }));
   };
-
+  
   // Handle form submission
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Form Data:', influencerData);
-    addInfluencerToFirestore(influencerData).then((newInfluencerId: string) => {
+    //normalize text fields to make them searchable
+    const writeInfluencerData = convertFieldsToLowercase(influencerData);
+
+    await addInfluencerToFirestore(writeInfluencerData).then((newInfluencerId: string) => {
       //navigate to influencer page
       if (newInfluencerId !== "") {
         window.location.href = `/influencer?id=${newInfluencerId}`;
