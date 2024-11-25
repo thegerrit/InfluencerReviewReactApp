@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { PLATFORMS } from '../utils/Constants';
 
 interface SocialMediaHandle {
   platform: string;
@@ -11,12 +12,9 @@ interface SocialMediaFormProps {
 
 const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandles}) => {
   const maxRows = 8;
-  const platforms = [
-    'instagram', 'facebook', 'tiktok', 'youtube', 'snapchat', 'x', 'threads', 'linkedin'
-  ];
 
   const [handles, setHandles] = useState<SocialMediaHandle[]>([
-    { platform: platforms[0], handle: '' }
+    { platform: PLATFORMS[0], handle: '' }
   ]);
 
   const handlePlatformChange = (index: number, value: string) => {
@@ -35,7 +33,7 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
 
   const addHandleRow = () => {
     if (handles.length < maxRows) {
-      setHandles([...handles, { platform: platforms[0], handle: '' }]);
+      setHandles([...handles, { platform: PLATFORMS[0], handle: '' }]);
     }
     updateParentMediaHandles(handles);
   };
@@ -67,9 +65,9 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
                 value={item.platform}
                 onChange={(e) => handlePlatformChange(index, e.target.value)}
               >
-                {platforms.map((platform) => (
-                  <option key={platform} value={platform}>
-                    {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                {PLATFORMS.map((platform) => (
+                  <option value={platform.toLowerCase()}>
+                    {platform}
                   </option>
                 ))}
               </select>

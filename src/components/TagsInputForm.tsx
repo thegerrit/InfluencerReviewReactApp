@@ -17,7 +17,7 @@ const TagsInputForm: React.FC<TagsInputFormProps> = ({ tags, addTag, removeTag }
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
-      const newTag = tagInput.trim();
+      const newTag = tagInput.trim().toLowerCase();
       if (newTag && !tags.includes(newTag)) {
         addTag(newTag);
       }

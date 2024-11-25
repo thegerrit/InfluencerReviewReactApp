@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import AppContainer from '../../utils/AppContainer.tsx'
 import InfluencerDetails from '../../components/InfluencerDetails.tsx';
-import InfluencerData from '../../model/WriteInfluencerData.tsx';
+import ReadInfluencerData from '../../model/ReadInfluencerData.tsx';
 import GetInfluencerById from '../../dataApi/GetInfluencerById.tsx';
 // import Review from '../../model/Review.tsx';
 // import GetReviewsByInfluencerId from '../../dataApi/GetReviewsByInfluencerId.tsx';
@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import Loading from '../../components/Loading.tsx';
 
 const InfluencerPage: React.FC = () => {
-  const [influencer, setInfluencer] = useState<InfluencerData | null>(null);
+  const [influencer, setInfluencer] = useState<ReadInfluencerData | null>(null);
   // const [reviews, setReviews] = useState<Review[]>([]);
   const [_influencerId, set_InfluencerId] = useState<string>('');
 
