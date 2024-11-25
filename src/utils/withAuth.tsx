@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import { auth } from './FirebaseConfig';
 // import { onAuthStateChanged } from 'firebase/auth';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const withAuth = (Component: React.FC<any>) => {
@@ -20,11 +20,12 @@ const withAuth = (Component: React.FC<any>) => {
         return () => unsubscribe();
       }, []);
 
-    if (loading) {
-      return <Loading />; // Show a loading indicator while checking auth state
+    // if (loading) {
+    //   return <Loading />; // Show a loading indicator while checking auth state
+    // }
+    if (!loading) {
+      return <Component {...props} />
     }
-
-    return <Component {...props} />
   }
 }
 
