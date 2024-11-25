@@ -28,7 +28,7 @@ const SetDisplayNameComponent: React.FC = () => {
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Select a unique display name </h2>
-      <h3 className="text-center mb-4">(you can change it anytime)</h3>
+      <h4 className="text-center mb-4">(in later versions of this website, you will be able to change it)</h4>
       <form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: '400px' }}>
         <div className="form-group mb-3">
           <label htmlFor="displayName">Display Name:</label>

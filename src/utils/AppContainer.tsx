@@ -27,7 +27,9 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
   useEffect(() => {
     const setThemeBasedOnPreference = () => {
       const isDarkMode: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.body.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
+      // document.body.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
+      // document..setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
       console.log("isDarkMode: ", isDarkMode);
     };
     

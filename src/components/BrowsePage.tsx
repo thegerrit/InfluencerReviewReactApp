@@ -17,7 +17,7 @@ const BrowsePage: React.FC = () => {
         <div>
             <h1 className="page-title">Browse Recent Posts</h1>
             {sampleReviews.map((review) => (
-                <ReviewComponent reviewData={review} />
+                <ReviewComponent {...review} />
             ))}
         </div>
         

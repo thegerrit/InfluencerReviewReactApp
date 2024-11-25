@@ -1,53 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Review } from '../model/Review';
-import { fetchUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
-import voteOnReview from '../dataApi/voteOnReview';
+// import { Review } from '../model/Review';
+// import { fetchUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
+import { voteOnReview, hasUserVoted } from '../dataApi/voteOnReview';
 // import fetchVoteDetailsByReviewId from '../dataApi/fetchVoteDetailsByReviewId';
 import { auth } from '../utils/FirebaseConfig';
 // import VoteDetails from '../model/VoteDetails';
 interface ReviewProps {
-  reviewData: Review;
+  userId: string;
+  postId: string;
+  userName: string;
+  influencerId: string;
+  influencerName: string;
+  date: string;
+  textContent: string;
+  starRating: number;
+  upvotes: number;
+  downvotes: number;
 }
 
-const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
-  const [userName, setUserName] = useState('');
-  const [upvotes, setUpvotes] = useState(reviewData.upvotes);
-  const [downvotes, setDownvotes] = useState(reviewData.downvotes);
+const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, influencerId, influencerName, date, textContent, starRating, upvotes, downvotes }) => {
+  const [_upvotes, set_Upvotes] = useState(upvotes);
+  const [_downvotes, set_Downvotes] = useState(downvotes);
   const [hasVoted, setHasVoted] = useState(false);
   const currentUserId = auth.currentUser?.uid ?? '';
   
   useEffect(() => {
-    //TODO: refactor this so it only fetches user handle and doesn't make lots of calls to db
-    fetchUserDataByUserId(reviewData.userId).then(  userData => {
-      if (userData) {
-        setUserName(userData.userHandle);
+    hasUserVoted(postId, currentUserId).then(
+      (_hasVoted: boolean) => {
+        setHasVoted(_hasVoted);
+        console.log("has voted", _hasVoted);
       }
-    });
-    // fetchVoteDetailsByReviewId(reviewData.influencerId, reviewData.postId).then((voteDetails) => {
-    //   setDownvotes(voteDetails?.downvotes ?? 0);
-    //   setUpvotes(voteDetails?.upvotes ?? 0);
-    //   setHasVoted(voteDetails?.hasVoted ?? false);
-    // });
-  }, [userName, upvotes, downvotes, hasVoted]);
+    );
+    set_Upvotes(upvotes);
+    set_Downvotes(downvotes);
+    console.log("review component rerendered");
+  }, [postId]);
 
-  const handleUpvote = () => {
+  // useEffect(() => {
+  //   console.log("review component rerendered");
+  //   set_Upvotes(upvotes);
+  //   set_Downvotes(downvotes);
+  // }, [upvotes, downvotes]);
+
+
+  // useEffect(() => {
+  //   console.log("HAS VOTED: ", hasVoted);
+  // }, [hasVoted]);
+
+  const handleVote = (isUpvote: boolean) => {
+    if (!auth.currentUser) {
+      alert("Please login to vote on this review");
+      return;
+    }
     if (!hasVoted) {
-      setUpvotes((prev: number) => prev + 1);
-      setHasVoted(true);
-      voteOnReview(reviewData.influencerId, reviewData.postId, currentUserId, true);
+      isUpvote ? set_Upvotes((prev: number) => prev + 1) : set_Downvotes((prev: number) => prev + 1);
+      // setHasVoted(true);
+      voteOnReview(postId, currentUserId, isUpvote).then(() => setHasVoted(true));
     }
   };
 
-  const handleDownvote = () => {
-    if (!hasVoted) {
-      setDownvotes((prev: number) => prev + 1);
-      setHasVoted(true);
-      voteOnReview(reviewData.influencerId, reviewData.postId, currentUserId, false);
-    }
-  };
-
-  const formattedDate = new Date(reviewData.date).toLocaleDateString();
+  const formattedDate = new Date(date).toLocaleDateString();
 
   return (
     <div className="p-3 border-bottom">
@@ -59,17 +72,17 @@ const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
           {userName} <span style={{
             fontWeight:"lighter",
             opacity: "60%"
-          }}>reviewed</span> {reviewData.influencerName} <br/>
+          }}>reviewed</span> <a href={`/influencer?id=${influencerId}`}>{influencerName}</a> <br/>
           <span className="ms-2 text-warning" style={{
             paddingTop: "0.3rem",
             paddingBottom: "0.3rem",
             fontSize: "0.8rem"
-          }}>{"⭐".repeat(reviewData.starRating)}</span>
+          }}>{"⭐".repeat(starRating)}</span>
         </h5>
         <span className="text-muted">{formattedDate}</span>
       </div>
 
-      <p>{reviewData.textContent}</p>
+      <p>{textContent}</p>
 
       {/* Upvotes and Downvotes */}
       <div className="d-flex gap-3 align-items-center">
@@ -78,24 +91,24 @@ const ReviewComponent: React.FC<ReviewProps> = ({ reviewData }) => {
             role="button" 
             aria-label="thumbs up" 
             className="me-1" 
-            onClick={handleUpvote}
+            onClick={() => handleVote(true)}
             style={{ cursor: hasVoted ? 'default' : 'pointer', opacity: hasVoted ? 0.5 : 1 }}
           >
             👍
           </span>
-          <span>{upvotes}</span>
+          <span>{_upvotes}</span>
         </div>
         <div className="d-flex align-items-center">
           <span 
             role="button" 
             aria-label="thumbs down" 
             className="me-1" 
-            onClick={handleDownvote}
+            onClick={() => handleVote(false)}
             style={{ cursor: hasVoted ? 'default' : 'pointer', opacity: hasVoted ? 0.5 : 1 }}
           >
             👎
           </span>
-          <span>{downvotes}</span>
+          <span>{_downvotes}</span>
         </div>
       </div>
     </div>

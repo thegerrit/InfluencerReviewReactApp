@@ -9,3 +9,9 @@
 body {
     background-color: var(--bs-body-bg);
 }
+html {
+    background-color: var(--bs-body-bg);
+}
+:root {
+    --bs-data-theme: dark;
+}

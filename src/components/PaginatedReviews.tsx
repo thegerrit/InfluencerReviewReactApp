@@ -65,8 +65,11 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
 
     return (
         <div>
-            {reviews.map((review, index) => (
+            {/* {reviews.map((review, index) => (
                 <ReviewComponent key={index} reviewData={review} />
+            ))} */}
+             {reviews.map((review) => (
+                <ReviewComponent {...review} />
             ))}
             <div className="d-flex justify-content-between mt-3">
                 <button 
