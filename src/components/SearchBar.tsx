@@ -6,9 +6,9 @@ import { searchInfluencersWithPagination } from '../dataApi/SearchInfluencer';
 import { DocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
 import ReadInfluencerData from '../model/ReadInfluencerData';
 import InfluencerSearchResult from './InfluencerSearchResult';
+import '../styles/search.css';
 
 const PAGE_SIZE = 3;
-// const SearchBar: React.FC<{ searchFunction: (searchTerm: string, searchField: string) => void}> = ({ searchFunction }) => {
 const SearchBar: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [searchField, setSearchField] = useState('firstName');
@@ -17,28 +17,37 @@ const SearchBar: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [firstDoc, setFirstDoc] = useState<DocumentSnapshot | null>(null);
   const [lastDoc, setLastDoc] = useState<DocumentSnapshot | null>(null);
+  const [lastSearchText, setLastSearchText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
     setMode("initial");
-    // setCurrentPage(1);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSearchClick();
+    }
   };
 
   const handleSearchClick = () => {
-    fetchInfluencers(searchText.toLowerCase(), searchField);
-    setMode("next");
-    setCurrentPage(1);
+    if (searchText !== lastSearchText) {  
+      setLastSearchText(searchText);
+      fetchInfluencers(searchText.toLowerCase(), searchField);
+      setMode("next");
+      setCurrentPage(1);
+    }
   };
 
   const handleSearchFieldChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSearchField(event.target.value);
-    // setCurrentPage(1);
   };
 
-  // const handlePreviousPage = () => {
-  //   setMode("previous");
-  //   setCurrentPage(currentPage - 1);
-  // };
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
 
   const handlePagination = async (direction: "next" | "previous" | "backFromLast") => {
     setMode(direction);
@@ -68,37 +77,32 @@ const SearchBar: React.FC = () => {
   const fetchInfluencers = async (searchTerm: string, searchField: string) => {
     try {
       let influencerSnapshot: QuerySnapshot;
-      // if (mode === "initial"){
       console.log("search on initial page");
-      influencerSnapshot = await searchInfluencersWithPagination(searchTerm, searchField, PAGE_SIZE, null, "initial");
-      // } else if (mode === "next"){
-      //   influencerSnapshot = await searchInfluencersWithPagination(searchTerm, searchField, PAGE_SIZE, lastDoc, mode);
-      // } else if (mode === "previous"){
-      //   influencerSnapshot = await searchInfluencersWithPagination(searchTerm, searchField, PAGE_SIZE, firstDoc, mode);
-      // } else if (mode == "backFromLast") {
-      //   influencerSnapshot = await searchInfluencersWithPagination(searchTerm, searchField, PAGE_SIZE, lastDoc, mode);
-      // }else {
-      //   throw new Error("Invalid pagination mode. Use 'next' or 'previous'.");
-      // }
-      //   const influencerList: ReadInfluencerData[] = await searchInfluencersByField(searchTerm, searchField);
-      //   console.log(influencerList);
+      influencerSnapshot = await searchInfluencersWithPagination(searchTerm, searchField, PAGE_SIZE, null, mode);
+
       const influencerList: ReadInfluencerData[] = influencerSnapshot.docs.map(doc => ({
         influencerId: doc.id,
         ...doc.data()
       }) as ReadInfluencerData);
       setInfluencers(influencerList);
-      // set_SearchField(searchField);
-      // setFirstDoc(influencerSnapshot.docs[0]);
       setLastDoc(influencerSnapshot.docs[influencerSnapshot.docs.length - 1]);
-      //   setCurrentPage(currentPage + 1);
     } catch (error) {
       console.error('Error fetching influencer data:', error);
     }
   };
-
   return (
     <div className="container my-3">
-      <form className="d-flex flex-column align-items-start">
+      <button className="btn btn-secondary instructions-button" data-bs-toggle="collapse" data-bs-target="#help-popup">
+        Instructions 
+      </button>
+        <div id="help-popup" className="collapse help-popup">
+          <div className="help-popup-content"> 
+            <p className="help-text">This is a temporary search page. Better search is coming soon! In the meantime, use the dropdown menu to search by first name, last name, or social media platform. <br/>
+            <strong>Note:</strong> you must enter the exact search term as it appears on the influencer's profile (case insensitive).</p>
+          </div>
+        </div>
+      <form className="d-flex flex-column align-items-start search-form" onSubmit={handleFormSubmit}>
+        <span> Search by: </span>
         <select className="form-select mb-2" value={searchField} onChange={handleSearchFieldChange} style={{ maxWidth: '12rem' }}>
           <option value="firstName">First Name</option>
           <option value="lastName">Last Name</option>
@@ -113,6 +117,7 @@ const SearchBar: React.FC = () => {
             placeholder="Search..."
             value={searchText}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             style={{ flex: 1 }}
           />
           <button
@@ -124,7 +129,7 @@ const SearchBar: React.FC = () => {
           </button>
         </div>
       </form>
-      {(influencers.length > 0 || currentPage > 0) &&
+      {(influencers.length > 0 && currentPage > 0) &&
         <div>
           <table className="table">
             <thead>
@@ -151,7 +156,6 @@ const SearchBar: React.FC = () => {
                   (influencers.length > 0) ? handlePagination("previous") : handlePagination("backFromLast")
                 }
                 }
-              // disabled={currentPage <= 1}
               >
                 Previous
               </button>
@@ -161,7 +165,6 @@ const SearchBar: React.FC = () => {
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => handlePagination("next")}
-              // disabled={influencers.length < PAGE_SIZE}
               >
                 Next
               </button>
