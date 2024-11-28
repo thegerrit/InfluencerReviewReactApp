@@ -9,6 +9,7 @@ interface WriteInfluencerData {
     otherMediaHandles: MediaHandle[];
     numberOfReviews: number;
     tags: string[];
+    dateCreated: Date;
     instagram?: string;
     facebook?: string;
     tiktok?: string;

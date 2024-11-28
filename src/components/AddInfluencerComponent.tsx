@@ -15,7 +15,8 @@ const AddInfluencerPage: React.FC = () => {
     starRating: 0,
     otherMediaHandles: [],
     numberOfReviews: 0,
-    tags: []
+    tags: [],
+    dateCreated: new Date()
   });
 
   //function to update Text input fields
