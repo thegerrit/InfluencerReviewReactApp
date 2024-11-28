@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "../styles/InfluencerSearchResult.css";
 
 const AddInfluencer: React.FC = () => {
   const handleClick = () => {
@@ -8,7 +9,7 @@ const AddInfluencer: React.FC = () => {
 
   return (
     <div className="container d-flex justify-content-center my-4">
-      <div className="row w-75">
+      <div className="row w-75 influencer-add-container">
         <div className="col-8 d-flex align-items-center">
           <p className="mb-0" style={{ fontSize: '1.2rem' }}>
             Can't find who you're looking for?

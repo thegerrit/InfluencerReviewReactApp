@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getReviewsWithPagination } from "../dataApi/GetReviewsByInfluencerId";
-import  ReviewComponent  from "./ReviewComponent";
+import ReviewComponent from "./ReviewComponent";
 import { DocumentSnapshot, QuerySnapshot, where } from "firebase/firestore";
-import {Review} from '../model/Review';
+import { Review } from '../model/Review';
 interface PaginatedReviewsProps {
     queryBy: "influencerId" | "userId";
     queryValue: string;
@@ -19,26 +19,27 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
     useEffect(() => {
         const fetchReviews = async () => {
             let reviewsSnapshot: QuerySnapshot;
-            if (mode === "initial"){
+            if (mode === "initial") {
                 reviewsSnapshot = await getReviewsWithPagination(where(queryBy, "==", queryValue), PAGE_SIZE, null, mode);
-            } else if (mode === "next" || mode === "backFromLast"){
-                    reviewsSnapshot = await getReviewsWithPagination(where(queryBy, "==", queryValue), PAGE_SIZE, lastDoc, mode);
-            } else if (mode === "previous"){
+            } else if (mode === "next" || mode === "backFromLast") {
+                reviewsSnapshot = await getReviewsWithPagination(where(queryBy, "==", queryValue), PAGE_SIZE, lastDoc, mode);
+            } else if (mode === "previous") {
                 reviewsSnapshot = await getReviewsWithPagination(where(queryBy, "==", queryValue), PAGE_SIZE, firstDoc, mode);
             } else {
                 throw new Error("Invalid pagination mode. Use 'next' or 'previous'.");
             }
             const someReviews: Review[] = reviewsSnapshot.docs.map(doc => ({
                 postId: doc.id,
-                ...doc.data()}) as Review);
+                ...doc.data()
+            }) as Review);
             setReviews(someReviews);
-            if (someReviews.length > 0){
+            if (someReviews.length > 0) {
                 // setFirstDoc(lastDoc);
-            // } else {
+                // } else {
                 setFirstDoc(reviewsSnapshot.docs[0]);
                 setLastDoc(reviewsSnapshot.docs[reviewsSnapshot.docs.length - 1]);
             }
-            
+
             // setTotalPages(totalPages);
         };
 
@@ -47,18 +48,18 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
 
     const handleNextPage = () => {
         // if (currentPage < totalPages) {
-            setMode("next");
-            setCurrentPage(currentPage + 1);
+        setMode("next");
+        setCurrentPage(currentPage + 1);
         // }
     };
 
     const handlePreviousPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
-            if (currentPage === 1){
+            if (currentPage === 1) {
                 setMode("initial");
-            } else{
-                setMode((reviews.length === 0)? "backFromLast" : "previous");
+            } else {
+                setMode((reviews.length === 0) ? "backFromLast" : "previous");
             }
         }
     };
@@ -68,21 +69,21 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
             {/* {reviews.map((review, index) => (
                 <ReviewComponent key={index} reviewData={review} />
             ))} */}
-             {reviews.map((review) => (
+            {reviews.map((review) => (
                 <ReviewComponent {...review} />
             ))}
             <div className="d-flex justify-content-between mt-3">
-                <button 
-                    className="btn btn-primary" 
-                    onClick={handlePreviousPage} 
+                <button
+                    className="btn btn-primary"
+                    onClick={handlePreviousPage}
                     disabled={currentPage === 1}
                 >
                     Previous
                 </button>
                 <span>{currentPage}</span>
-                <button 
-                    className="btn btn-primary" 
-                    onClick={handleNextPage} 
+                <button
+                    className="btn btn-primary"
+                    onClick={handleNextPage}
                     disabled={reviews.length < PAGE_SIZE}
                 >
                     Next
