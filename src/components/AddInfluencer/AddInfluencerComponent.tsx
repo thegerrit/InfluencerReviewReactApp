@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import TagsInputForm from './TagsInputForm';
 import OtherSocialMediaForm from './OtherSocialMediaForm';
 import SocialMediaForm from './SocialMediaForm';
-import WriteInfluencerData from '../model/WriteInfluencerData';
-import addInfluencerToFirestore from '../dataApi/addInfluencerToFirestore';
-import { PLATFORMS } from '../utils/Constants';
-import convertFieldsToLowercase from '../utils/Normalization';
+import WriteInfluencerData from '../../model/WriteInfluencerData';
+import addInfluencerToFirestore from '../../dataApi/addInfluencerToFirestore';
+import { PLATFORMS } from '../../utils/Constants';
+import { convertFieldsToLowercase } from '../../utils/Normalization';
+import validateInfluencerData from '../../utils/ValidateInfluencerData';
 
 const AddInfluencerPage: React.FC = () => {
   const [influencerData, setInfluencerData] = useState<WriteInfluencerData>({
@@ -18,6 +19,7 @@ const AddInfluencerPage: React.FC = () => {
     tags: [],
     dateCreated: new Date()
   });
+  const [validationError, setValidationError] = useState<string>("");
 
   //function to update Text input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof WriteInfluencerData, index?: number) => {
@@ -38,8 +40,10 @@ const AddInfluencerPage: React.FC = () => {
   // Functions to update parent component state from children
   //-------- social media handles
   const updateMediaHandles = (handles: {platform: string, handle: string}[]) => {
+    // const lowercasePlatforms = PLATFORMS.map(platform => platform.toLowerCase());
     for (const handle of handles) {
       if (handle.handle !== "" && PLATFORMS.includes(handle.platform)) {
+        console.log("adding handle:", handle);
         setInfluencerData((prevData) => ({
             ...prevData,
           [handle.platform.toLowerCase()]: handle.handle
@@ -73,13 +77,20 @@ const AddInfluencerPage: React.FC = () => {
   // Handle form submission
   const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault();
+    console.log("influencerData:", influencerData);
+    //validate influencerData
+    const validationResult = validateInfluencerData(influencerData);
+    if (validationResult[0] === "1") {
+      setValidationError(validationResult[1]);
+      return;
+    }
     //normalize text fields to make them searchable
     const writeInfluencerData = convertFieldsToLowercase(influencerData);
 
     await addInfluencerToFirestore(writeInfluencerData).then((newInfluencerId: string) => {
       //navigate to influencer page
       if (newInfluencerId !== "") {
-        window.location.href = `/influencer?id=${newInfluencerId}`;
+        // window.location.href = `/influencer?id=${newInfluencerId}`;
       }
     }).catch((error) => {
       console.error("Error adding influencer to Firestore: ", error);
@@ -89,11 +100,12 @@ const AddInfluencerPage: React.FC = () => {
   return (
     <div className="container mt-4">
       <h1 className="page-title">Enter Influencer Details</h1>
+      <p className="text-muted">* indicates a required field</p>
       <form onSubmit={handleSubmit}>
 
         {/* Basic Fields  */}
         <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">First Name</label>
+          <label htmlFor="firstName" className="form-label">First Name*</label>
           <input
             type="text"
             className="form-control"
@@ -138,10 +150,12 @@ const AddInfluencerPage: React.FC = () => {
         <TagsInputForm tags={influencerData.tags} addTag={addTag} removeTag={removeTag} />
 
         {/* Submit button */}
-        <div className="mt-4">
+        <div className="mt-4"
+        style={{marginBottom: "5rem"}}>
           <button type="submit" className="btn btn-primary">
-            Submit Form
+            Submit Influencer
           </button>
+          {validationError && <div className="text-danger mt-2">{validationError}</div>}
         </div>
       </form>
     </div>

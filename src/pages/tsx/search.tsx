@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import AppContainer from '../../utils/AppContainer.tsx'
-import SearchPage from '../../components/SearchPage.tsx';
+import SearchPage from '../../components/Search/SearchPage';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

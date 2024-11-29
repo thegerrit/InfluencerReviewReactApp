@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/InfluencerSearchResult.css';
-import ReadInfluencerData from '../model/ReadInfluencerData';
-import { PLATFORMS } from '../utils/Constants';
+import '../../styles/InfluencerSearchResult.css';
+import ReadInfluencerData from '../../model/ReadInfluencerData';
+import { PLATFORMS } from '../../utils/Constants';
 
 interface InfluencerSearchResultProps {
   influencer: ReadInfluencerData;

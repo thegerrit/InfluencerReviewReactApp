@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/TagsInputForm.css';
+import '../../styles/TagsInputForm.css';
 
 interface TagsInputFormProps {
   tags: string[];
@@ -27,7 +27,7 @@ const TagsInputForm: React.FC<TagsInputFormProps> = ({ tags, addTag, removeTag }
 
   return (
     <div className="container mt-4">
-      <h2>Tags Input Form</h2>
+      <h3>Enter influencer tags* <span style={{opacity: "0.7"}}>(5 minimum)</span></h3>
       <div className="tags-input-container">
         {tags.map((tag, index) => (
           <div className="tag-box" key={index}>

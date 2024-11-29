@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import AppContainer from '../../utils/AppContainer.tsx'
-import AddInfluencerPage from '../../components/AddInfluencerComponent.tsx'
+import AddInfluencerPage from '../../components/AddInfluencer/AddInfluencerComponent.tsx'
 // import setTheme from '../../utils/setTheme.js'
 // setTheme();
 
