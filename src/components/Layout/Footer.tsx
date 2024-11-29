@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../styles/footer.css';
 
 const Footer: React.FC = () => {
     return (
         <footer className="bg-dark text-light py-3 mt-auto">
-            <div className="container">
+            <div className="container custom-footer">
                 <div className="row">
                     <div className="col-md-12 text-center">
                         <ul className="list-inline">
