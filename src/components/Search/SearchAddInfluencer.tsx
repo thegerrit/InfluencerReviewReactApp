@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../styles/InfluencerSearchResult.css";
+// import '../../styles/InfluencerSearchResult.css';
+import '../../styles/InfluencerSearchResult.css';
 
 const AddInfluencer: React.FC = () => {
   const handleClick = () => {

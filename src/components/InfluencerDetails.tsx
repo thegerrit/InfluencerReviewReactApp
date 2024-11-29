@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
-// import ReviewComponent from './ReviewComponent'; 
 import WriteReviewComponent from './WriteReviewComponent';
 import InfluencerData from '../model/ReadInfluencerData';
-// import Review from '../model/Review';
 import PaginatedReviews from './PaginatedReviews';
-// import Loading from './Loading';
 import { PLATFORMS } from '../utils/Constants';
+import { capitalizeFirstLetter } from '../utils/Normalization';
 
 interface InfluencerDetailsProps {
     influencerId: string;
     influencer: InfluencerData;
-    // reviews: Review[];
-    // isLoading: boolean;
 }
 
 
 const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, influencer }) => {
-  const fullName = `${influencer.firstName} ${influencer.lastName}`.trim();
+  const fullName = `${capitalizeFirstLetter(influencer.firstName)} ${capitalizeFirstLetter(influencer.lastName)}`.trim();
   const [showWriteReview, setShowWriteReview] = useState(false);
-
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
 
   return (
     <div className="container py-4">

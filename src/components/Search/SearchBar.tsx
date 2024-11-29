@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { InfluencerData } from './InfluencerDetails';
-import { PLATFORMS } from '../utils/Constants';
-import { searchInfluencersWithPagination } from '../dataApi/SearchInfluencer';
+import { PLATFORMS } from '../../utils/Constants';
+import { searchInfluencersWithPagination } from '../../dataApi/SearchInfluencer';
 import { DocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
-import ReadInfluencerData from '../model/ReadInfluencerData';
+import ReadInfluencerData from '../../model/ReadInfluencerData';
 import InfluencerSearchResult from './InfluencerSearchResult';
-import '../styles/search.css';
+import '../../styles/search.css';
 
 const PAGE_SIZE = 3;
 const SearchBar: React.FC = () => {

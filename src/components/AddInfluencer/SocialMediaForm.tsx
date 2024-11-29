@@ -1,61 +1,61 @@
 import React, { useState } from 'react';
+import { PLATFORMS } from '../../utils/Constants';
 
-interface OtherSocialMediaHandle {
+interface SocialMediaHandle {
   platform: string;
   handle: string;
 }
 
-interface OtherSocialMediaFormProps {
-    updateParentOtherMediaHandles: (handles: OtherSocialMediaHandle[]) => void;
+interface SocialMediaFormProps {
+    updateParentMediaHandles: (handles: SocialMediaHandle[]) => void;
 }
 
-const OtherSocialMediaForm: React.FC<OtherSocialMediaFormProps> = ({updateParentOtherMediaHandles}) => {
-  const maxRows = 10;
+const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandles}) => {
+  const maxRows = 8;
 
-  const [handles, setHandles] = useState<OtherSocialMediaHandle[]>([
-    { platform: '', handle: '' }
+  const [handles, setHandles] = useState<SocialMediaHandle[]>([
+    { platform: PLATFORMS[0], handle: '' }
   ]);
 
   const handlePlatformChange = (index: number, value: string) => {
     const updatedHandles = [...handles];
     updatedHandles[index].platform = value;
+    console.log("Platform update value:", value);
     setHandles(updatedHandles);
-    updateParentOtherMediaHandles(updatedHandles);
+    console.log("Platform update updatedHandles:", handles);
+    updateParentMediaHandles(updatedHandles);
   };
 
   const handleInputChange = (index: number, value: string) => {
     const updatedHandles = [...handles];
     updatedHandles[index].handle = value;
     setHandles(updatedHandles);
-    updateParentOtherMediaHandles(updatedHandles);
+    console.log("Handle update updatedHandles:", handles);
+    updateParentMediaHandles(updatedHandles);
   };
 
   const addHandleRow = () => {
     if (handles.length < maxRows) {
-      setHandles([...handles, { platform: '', handle: '' }]);
+      const availablePlatform = PLATFORMS.find(platform => !handles.some(handle => handle.platform === platform)) || PLATFORMS[0];
+      setHandles([...handles, { platform: availablePlatform, handle: '' }]);
     }
-    updateParentOtherMediaHandles(handles);
+    updateParentMediaHandles(handles);
   };
 
   const removeHandleRow = (index: number) => {
-    setHandles(handles.filter((_, i) => i !== index));
-    updateParentOtherMediaHandles(handles);
+    const updatedHandles = handles.filter((_, i) => i !== index);
+    setHandles(updatedHandles);
+    updateParentMediaHandles(updatedHandles);
   };
-
-//   const handleSubmit = (event: React.FormEvent) => {
-//     event.preventDefault();
-//     console.log('Submitted Other Handles:', handles);
-//   };
 
   return (
     <div className="container mt-4">
-      <h2>Other Social Media Handle Form</h2>
-      {/* <form onSubmit={handleSubmit} className="row g-3"> */}
+      <h3>Add Social Media Handles* <span style={{opacity: "0.7"}}>(1 minimum)</span></h3>
       <div className="row g-3">
         {/* Headers for the columns */}
         <div className="row g-3">
           <div className="col-md-5">
-            <h6>Social Media Platform</h6>
+            <h6>Media Platform</h6>
           </div>
           <div className="col-md-5">
             <h6>Handle</h6>
@@ -65,13 +65,17 @@ const OtherSocialMediaForm: React.FC<OtherSocialMediaFormProps> = ({updateParent
         {handles.map((item, index) => (
           <div className="row g-3 align-items-end" key={index}>
             <div className="col-md-5">
-              <input
-                type="text"
-                className="form-control"
+              <select
+                className="form-select"
                 value={item.platform}
                 onChange={(e) => handlePlatformChange(index, e.target.value)}
-                placeholder="Enter social media platform"
-              />
+              >
+                {PLATFORMS.filter(platform => !handles.some(handle => handle.platform === platform && handle.platform !== item.platform)).map((platform) => (
+                  <option key={platform} value={platform}>
+                    {platform}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="col-md-5">
@@ -106,10 +110,10 @@ const OtherSocialMediaForm: React.FC<OtherSocialMediaFormProps> = ({updateParent
             </button>
           )}
         </div>
-      {/* </form> */}
+      
       </div>
     </div>
   );
 };
 
-export default OtherSocialMediaForm;
+export default SocialMediaForm;
