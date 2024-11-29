@@ -44,6 +44,7 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
   }, []);
 
   return (
+    <>
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
       {/* <div style={{ ...containerStyles, flex: '1' }}> */}
@@ -52,6 +53,8 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
       </div>
       <Footer />
     </div>
+    
+    </>
   )
 }
 
