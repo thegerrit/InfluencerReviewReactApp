@@ -1,8 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';  // Add this line
-import '../styles/navbar.css';
-import { auth } from '../utils/FirebaseConfig';
+import '../../styles/navbar.css';
+import { auth } from '../../utils/FirebaseConfig';
 
 const NavBar: React.FC = () => {
   return (
@@ -23,6 +23,11 @@ const NavBar: React.FC = () => {
           <li className="nav-item custom-nav-item">
             <a className="nav-link text-decoration-none" href="/browse" style={{ color: 'var(--bs-body-color)' }}>
               Browse
+            </a>
+          </li>
+          <li className="nav-item custom-nav-item">
+            <a className="nav-link text-decoration-none" href="/contactUs" style={{ color: 'var(--bs-body-color)' }}>
+              Contact Us
             </a>
           </li>
         </ul>

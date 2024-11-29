@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import AppContainer from '../../utils/AppContainer.tsx'
+import AppContainer from '../../components/Layout/AppContainer'
 import InfluencerDetails from '../../components/InfluencerDetails.tsx';
 import ReadInfluencerData from '../../model/ReadInfluencerData.tsx';
 import GetInfluencerById from '../../dataApi/GetInfluencerById.tsx';

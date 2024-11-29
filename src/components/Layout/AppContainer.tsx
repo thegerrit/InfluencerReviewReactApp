@@ -1,35 +1,34 @@
 // import { useState } from 'react'
 // import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/common.css';
+import '../../styles/common.css';
 // import { useEffect, ReactNode } from 'react';
 import React, { ReactNode, useEffect } from 'react';
-import Navbar from '../components/NavBar';
-import withAuth from './withAuth';
-
+import Navbar from './NavBar';
+import withAuth from '../../utils/withAuth';
+import Footer from './Footer';
+import '../../styles/common.css';
 interface DisplayComponentProps {
   ComponentProp: ReactNode;
 }
-const containerStyles = {
-  margin: '0 auto',
-  padding: '0 1rem',
-  maxWidth: '1200px',
-  '@media (min-width: 768px)': {
-    padding: '0 2rem'
-  },
-  '@media (min-width: 1024px)': {
-    padding: '0 4rem'
-  }
-};
+// const containerStyles = {
+//   margin: '0 auto',
+//   padding: '0 1rem',
+//   maxWidth: '1800px',
+//   '@media (min-width: 768px)': {
+//     padding: '0 2rem'
+//   },
+//   '@media (min-width: 1024px)': {
+//     padding: '0 2rem'
+//   }
+// };
 
 const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
 
   useEffect(() => {
     const setThemeBasedOnPreference = () => {
       const isDarkMode: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      // document.body.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
       document.documentElement.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
-      // document..setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
       console.log("isDarkMode: ", isDarkMode);
     };
     
@@ -45,17 +44,15 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
   }, []);
 
   return (
-    // <UserProvider>
-      <div>
-        <Navbar />
-        <div style={containerStyles}>
-      
-        {ComponentProp }
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Navbar />
+      {/* <div style={{ ...containerStyles, flex: '1' }}> */}
+      <div className='app-container'>
+        {ComponentProp}
       </div>
-    // </UserProvider>
+      <Footer />
+    </div>
   )
-  
 }
 
 // export default withAuth(AppContainer);

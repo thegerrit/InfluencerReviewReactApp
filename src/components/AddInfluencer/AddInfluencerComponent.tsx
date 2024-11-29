@@ -153,7 +153,7 @@ const AddInfluencerPage: React.FC = () => {
         <div className="mt-4"
         style={{marginBottom: "5rem"}}>
           <button type="submit" className="btn btn-primary">
-            Submit Influencer
+            Create Influencer
           </button>
           {validationError && <div className="text-danger mt-2">{validationError}</div>}
         </div>

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 // import ComingSoon from '../components/ComingSoon';
-import  AppContainer  from '../../utils/AppContainer';
+import  AppContainer  from '../../components/Layout/AppContainer';
 // import UserReviewHistoryComponent from '../../components/UserReviewHistoryComponent';
 // import UserHistoryPageComponent from '../../components/UserHistoryPageComponent';
 import UserReviewsComponent from '../../components/UserReviewsComponent';
