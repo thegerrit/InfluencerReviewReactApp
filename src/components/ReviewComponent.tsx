@@ -63,7 +63,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, influencerId
   const formattedDate = new Date(date).toLocaleDateString();
 
   return (
-    <div className="p-3 border-bottom">
+    <div className="border-bottom">
       <div 
         className="d-flex justify-content-between align-items-center p-2"
         style={{ backgroundColor: 'var(--bs-primary-bg-subtle)', color: 'var(--bs-primary-text)' }}

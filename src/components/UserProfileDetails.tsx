@@ -3,14 +3,10 @@ import { auth } from '../utils/FirebaseConfig';
 // import { fetchUserDataByUserId, updateUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
 import { fetchUserDataByUserId } from '../dataApi/fetchUserHandleByUserId';
 
-//TODO: add edit functionality in MVP 2
 const UserProfileDetails: React.FC = () => {
     const user = auth.currentUser;
-    // const [isEditing, setIsEditing] = useState(false);
     const [displayName, setDisplayName] = useState('');
     const [contactEmail, setContactEmail] = useState('');
-    // const [responseMessage, setResponseMessage] = useState('');
-    // const [responseStatus, setResponseStatus] = useState('');
 
     useEffect(() => {
         if (user?.uid) {
@@ -24,67 +20,22 @@ const UserProfileDetails: React.FC = () => {
         }
     }, [user?.uid]);
 
-    // const handleEditClick = () => {
-    //     setIsEditing(true);
-    // };
-
-    // const handleSaveClick = async () => {
-    //     if (user?.uid) {
-    //         const response = await updateUserDataByUserId(user.uid, displayName, contactEmail);
-    //         const [status, message] = response || ["", ""];
-    //         if (status === "0") {
-    //             setIsEditing(false);
-    //             setResponseMessage(message);
-    //             setResponseStatus(status);
-    //         } else {
-    //             setResponseMessage(message);
-    //             setResponseStatus(status);
-    //         }
-    //     }
-    // };
-
     return (
         <div className="card" style={{ backgroundColor: 'var(--bs-body-bg)', color: 'var(--bs-body-color)' }}>
             <div className="card-body">
                 <h5 className="card-title">User Profile</h5>
                 <p className="card-text">
                     <strong>Display Name: </strong> 
-                    {/* {isEditing ? (
-                        <input 
-                            type="text" 
-                            value={displayName} 
-                            onChange={(e) => setDisplayName(e.target.value)} 
-                        />
-                    ) : (
-                        displayName
-                    )} */}
+                    
                     {displayName}
                 </p>
                 <p className="card-text">
                     <strong>Optional Contact Email: </strong>
-                    {/* {isEditing ? (
-                        <input 
-                            type="text" 
-                            value={contactEmail} 
-                            onChange={(e) => setContactEmail(e.target.value)} 
-                        />
-                    ) : (
-                        contactEmail
-                    )} */}
+                   
                     {contactEmail}
                 </p>
-                <p className="card-text"><strong>UID:</strong> {user?.uid}</p>
-                {/* {isEditing ? (
-                    <span>
-                        <button className="btn btn-primary" onClick={handleSaveClick}>Save</button>
-                        <button className="btn btn-secondary" onClick={() => setIsEditing(false)}>Cancel</button>
-                    </span>
-                ) : (
-                    <button className="btn btn-primary" onClick={handleEditClick}>Edit</button>
-                )} */}
-                
-                {/* {responseStatus === "0" && <p className="text-center mt-3 text-success">{responseMessage}</p>}
-                {responseStatus === "1" && <p className="text-center mt-3 text-danger">{responseMessage}</p>} */}
+                <p className="card-text"><strong>UID:</strong> {user?.uid}</p> 
+                <p>To update or delete your profile, please use the <a href="/ContactUs">Contact Us Page.</a></p>   
             </div>
         </div>
     );

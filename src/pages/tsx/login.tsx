@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 // import ComingSoon from '../components/ComingSoon';
 // import AppContainer from '../App';
 import SignIn from '../../components/SignIn';
-import { NoAuthAppContainer } from '../../utils/AppContainer';
+import { NoAuthAppContainer } from '../../components/Layout/AppContainer';
 
 // ReactDOM.render(<Browse />, document.getElementById('root'));
 

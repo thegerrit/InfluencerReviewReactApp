@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import AppContainer from '../../utils/AppContainer.tsx'
-import SetDisplayNameComponent from '../../components/SetDisplayNameComponent.tsx';
+import AppContainer from '../../components/Layout/AppContainer'
+import SetDisplayNameComponent from '../../components/SetDisplayNameComponent'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
