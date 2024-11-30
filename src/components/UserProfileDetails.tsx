@@ -7,10 +7,12 @@ const UserProfileDetails: React.FC = () => {
     const user = auth.currentUser;
     const [displayName, setDisplayName] = useState('');
     const [contactEmail, setContactEmail] = useState('');
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const userIdFromUrl = urlParams.get('userId');
     useEffect(() => {
-        if (user?.uid) {
-            fetchUserDataByUserId(user.uid)
+        
+        if (userIdFromUrl) {
+            fetchUserDataByUserId(userIdFromUrl)
                 .then((userData) => {
                     if (userData) {
                         setDisplayName(userData.userHandle || '');
@@ -18,7 +20,7 @@ const UserProfileDetails: React.FC = () => {
                     }
                 });
         }
-    }, [user?.uid]);
+    }, []);
 
     return (
         <div className="card" style={{ backgroundColor: 'var(--bs-body-bg)', color: 'var(--bs-body-color)' }}>
@@ -34,8 +36,15 @@ const UserProfileDetails: React.FC = () => {
                    
                     {contactEmail}
                 </p>
-                <p className="card-text"><strong>UID:</strong> {user?.uid}</p> 
-                <p>To update or delete your profile, please use the <a href="/ContactUs">Contact Us Page.</a></p>   
+                {/* <p className="card-text"><strong>UID:</strong> {user?.uid}</p>  */}
+
+                {(userIdFromUrl === user?.uid) && <p>To update or delete your profile, please use the <a href="/ContactUs">Contact Us Page.</a></p>}   
+                <button 
+                    className="btn btn-primary mt-3"
+                    onClick={() => window.location.href = `/reviewHistory?userId=${userIdFromUrl}`}
+                >
+                    Review History
+                </button>
             </div>
         </div>
     );
