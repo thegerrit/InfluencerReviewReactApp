@@ -1,6 +1,21 @@
 .custom-footer {
-    background-color: var(--bs-secondary-bg-subtle);
+    padding: 0 0rem 0.5rem 0rem !important;
+    
+    /* margin-top: 0.5rem; */
+}
+
+.custom-footer-container {
     border-top: 1px solid var(--bs-border-color);
     padding-top: 0.5rem;
+    /* padding-bottom: 0.5rem; */
     min-width: 100vw;
+}
+
+.footer-colors {
+    color: var(--bs-primary-text) !important;
+    background-color: var(--bs-secondary-bg-subtle);
+
+}
+a {
+    color: var(--bs-primary-text);
 }
