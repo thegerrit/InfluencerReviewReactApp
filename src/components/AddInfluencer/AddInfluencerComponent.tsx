@@ -3,7 +3,7 @@ import TagsInputForm from './TagsInputForm';
 import OtherSocialMediaForm from './OtherSocialMediaForm';
 import SocialMediaForm from './SocialMediaForm';
 import WriteInfluencerData from '../../model/WriteInfluencerData';
-import addInfluencerToFirestore from '../../dataApi/addInfluencerToFirestore';
+import { addInfluencerToFirestore, checkHandlesInUse } from '../../dataApi/addInfluencerToFirestore';
 import { PLATFORMS } from '../../utils/Constants';
 import { convertFieldsToLowercase } from '../../utils/Normalization';
 import validateInfluencerData from '../../utils/ValidateInfluencerData';
@@ -43,7 +43,6 @@ const AddInfluencerPage: React.FC = () => {
     // const lowercasePlatforms = PLATFORMS.map(platform => platform.toLowerCase());
     for (const handle of handles) {
       if (handle.handle !== "" && PLATFORMS.includes(handle.platform)) {
-        console.log("adding handle:", handle);
         setInfluencerData((prevData) => ({
             ...prevData,
           [handle.platform.toLowerCase()]: handle.handle
@@ -77,11 +76,17 @@ const AddInfluencerPage: React.FC = () => {
   // Handle form submission
   const handleSubmit = async(event: React.FormEvent) => {
     event.preventDefault();
-    console.log("influencerData:", influencerData);
     //validate influencerData
     const validationResult = validateInfluencerData(influencerData);
     if (validationResult[0] === "1") {
       setValidationError(validationResult[1]);
+      return;
+    }
+
+    //check if handles are in use
+    const checkHandlesResult = await checkHandlesInUse(influencerData);
+    if (checkHandlesResult[0] === "1") {
+      setValidationError(checkHandlesResult[1]);
       return;
     }
     //normalize text fields to make them searchable
