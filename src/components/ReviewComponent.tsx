@@ -39,16 +39,16 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
     console.log("review component rerendered");
   }, [postId]);
 
-  // useEffect(() => {
-  //   console.log("review component rerendered");
-  //   set_Upvotes(upvotes);
-  //   set_Downvotes(downvotes);
-  // }, [upvotes, downvotes]);
+  useEffect(() => {
+    console.log("review component rerendered");
+    set_Upvotes(upvotes);
+    set_Downvotes(downvotes);
+  }, [upvotes, downvotes]);
 
 
-  // useEffect(() => {
-  //   console.log("HAS VOTED: ", hasVoted);
-  // }, [hasVoted]);
+  useEffect(() => {
+    console.log("HAS VOTED: ", hasVoted);
+  }, [hasVoted]);
 
   const handleVote = (isUpvote: boolean) => {
     if (!auth.currentUser) {
