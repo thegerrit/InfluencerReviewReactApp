@@ -14,6 +14,7 @@ interface WriteReviewProps {
 const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influencerName, cancel }) => {
   const [starRating, setStarRating] = useState<number>(0);
   const [reviewText, setReviewText] = useState<string>('');
+  const [isGuidelinesChecked, setIsGuidelinesChecked] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -38,13 +39,13 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
       <form onSubmit={handleSubmit} className="p-4 rounded">
         <div className="mb-3">
           <label className="form-label">
-            Star Rating (0-5):
+            Star Rating (1-5):
             <input
               type="number"
               className="form-control"
               value={starRating}
               onChange={(e) => setStarRating(Number(e.target.value))}
-              min="0"
+              min="1"
               max="5"
             />
           </label>
@@ -59,7 +60,20 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
             />
           </label>
         </div>
-        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+        <div className="mb-3 form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="communityGuidelinesCheck"
+            required
+            onChange={(e) => setIsGuidelinesChecked(e.target.checked)}
+          />
+          <label className="form-check-label" htmlFor="communityGuidelinesCheck">
+            This review meets the standards of the <a href="/CommunityGuidelines" target="_blank">
+            Community Guidelines</a>.
+          </label>
+        </div>
+        <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={!isGuidelinesChecked || starRating === 0}>Submit</button>
         <button type="button" className="btn btn-secondary" onClick={cancel}>Cancel</button>
       </form>
     </div>

@@ -52,6 +52,19 @@ const SetDisplayNameComponent: React.FC = () => {
             required
           />
         </div>
+        <div className="form-group mb-3">
+          <div className="form-check">
+            <input
+              type="checkbox"
+              id="privacyPolicy"
+              className="form-check-input"
+              required
+            />
+            <label htmlFor="privacyPolicy" className="form-check-label">
+              I agree to Influencer Review's <a href="/privacyPolicy" target="_blank">Privacy Policy</a>
+            </label>
+          </div>
+        </div>
         <button type="submit" className="btn btn-primary w-100" onClick={handleSubmit}>Save Display Name</button>
         <p className="text-center mt-3 text-danger">{responseMessage}</p>
       </form>

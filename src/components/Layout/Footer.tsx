@@ -17,9 +17,9 @@ const Footer: React.FC = () => {
                             <li className="list-inline-item">
                                 <a href="/PrivacyPolicy">Private Policy</a>
                             </li>
-                            <li className="list-inline-item">
+                            {/* <li className="list-inline-item">
                                 <a href="/TermsAndConditions">Terms and Conditions</a>
-                            </li>
+                            </li> */}
                             <li className="list-inline-item">
                                 <a href="/ContactUs">Contact Us</a>
                             </li>

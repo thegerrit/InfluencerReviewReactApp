@@ -9,6 +9,7 @@ import withAuth from '../../utils/withAuth';
 import Footer from './Footer';
 import '../../styles/common.css';
 import { ThemeProvider } from '../../context/ThemeContext';
+// import { auth } from '../../utils/FirebaseConfig';
 interface DisplayComponentProps {
   ComponentProp: ReactNode;
 }
