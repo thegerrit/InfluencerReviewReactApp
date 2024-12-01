@@ -11,7 +11,7 @@ const withAuth = (Component: React.FC<any>) => {
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
           if (!user) {
-            window.location.href = '/login'; // Redirect to login page if not authenticated
+            window.location.href = '/'; // Redirect to login page if not authenticated
           } else {
             setLoading(false);
           }

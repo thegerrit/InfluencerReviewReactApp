@@ -12,7 +12,6 @@ const AddInfluencerPage: React.FC = () => {
   const [influencerData, setInfluencerData] = useState<WriteInfluencerData>({
     firstName: '',
     lastName: '',
-    contact: '',
     starRating: 0,
     otherMediaHandles: [],
     numberOfReviews: 0,
@@ -95,7 +94,7 @@ const AddInfluencerPage: React.FC = () => {
     await addInfluencerToFirestore(writeInfluencerData).then((newInfluencerId: string) => {
       //navigate to influencer page
       if (newInfluencerId !== "") {
-        // window.location.href = `/influencer?id=${newInfluencerId}`;
+        window.location.href = `/influencer?id=${newInfluencerId}`;
       }
     }).catch((error) => {
       console.error("Error adding influencer to Firestore: ", error);
@@ -130,7 +129,7 @@ const AddInfluencerPage: React.FC = () => {
           />
         </div>
 
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="contact" className="form-label">Contact</label>
           <input
             type="text"
@@ -139,7 +138,7 @@ const AddInfluencerPage: React.FC = () => {
             value={influencerData.contact}
             onChange={(e) => handleChange(e, 'contact')}
           />
-        </div>
+        </div> */}
 
         {/* Social Media Form Component */}
         < SocialMediaForm 

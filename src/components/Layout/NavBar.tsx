@@ -3,14 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/navbar.css';
 import { auth } from '../../utils/FirebaseConfig';
+import { useTheme } from '../../context/ThemeContext';
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor: 'var(--bs-body-bg)' }}>
+    <nav className={`navbar navbar-expand-lg custom-navbar ${useTheme() === 'dark' ? '' : 'light'}`}>
       <div className="container-fluid">
         {/* Navbar brand or logo */}
         <a className="navbar-brand" href="/" style={{ color: 'var(--bs-body-color)' }}>
-          Rate My Influencer
+          Influencer Review
         </a>
 
         {/* Toggle button for small screens */}
