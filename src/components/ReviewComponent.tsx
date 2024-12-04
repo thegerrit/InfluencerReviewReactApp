@@ -30,7 +30,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
   useEffect(() => {
     hasUserVoted(postId, currentUserId).then(
       (_hasVoted: boolean) => {
-        // setHasVoted(_hasVoted);
+        setHasVoted(_hasVoted);
         // console.log("has voted", _hasVoted);
       }
     );
