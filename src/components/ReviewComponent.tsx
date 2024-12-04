@@ -30,24 +30,24 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
   useEffect(() => {
     hasUserVoted(postId, currentUserId).then(
       (_hasVoted: boolean) => {
-        setHasVoted(_hasVoted);
-        console.log("has voted", _hasVoted);
+        // setHasVoted(_hasVoted);
+        // console.log("has voted", _hasVoted);
       }
     );
     set_Upvotes(upvotes);
     set_Downvotes(downvotes);
-    console.log("review component rerendered");
+    // console.log("review component rerendered");
   }, [postId]);
 
   useEffect(() => {
-    console.log("review component rerendered");
+    // console.log("review component rerendered");
     set_Upvotes(upvotes);
     set_Downvotes(downvotes);
   }, [upvotes, downvotes]);
 
 
   useEffect(() => {
-    console.log("HAS VOTED: ", hasVoted);
+    // console.log("HAS VOTED: ", hasVoted);
   }, [hasVoted]);
 
   const handleVote = (isUpvote: boolean) => {

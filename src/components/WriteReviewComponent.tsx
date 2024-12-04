@@ -43,7 +43,7 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
       textContent: reviewText,
       starRating: starRating,
     };
-    console.log(formData);
+    // console.log(formData);
     writeReviewToFirestore(formData, influencerId)
       .then(() => {
         window.location.reload();

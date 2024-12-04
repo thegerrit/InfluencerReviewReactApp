@@ -10,7 +10,7 @@ async function getReviewsByInfluencerId(influencerId: string): Promise<Review[]>
   const reviewsList: Review[] = reviewsSnapshot.docs.map(doc => ({
     postId: doc.id,
       ...doc.data()}) as Review);
-  console.log(reviewsList);
+  // console.log(reviewsList);
   return reviewsList;
 }
 

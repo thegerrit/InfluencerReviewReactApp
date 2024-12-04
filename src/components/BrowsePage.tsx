@@ -9,7 +9,7 @@ const BrowsePage: React.FC = () => {
 
     useEffect(() => {
         getSampleReviews().then(sampleReviews => {
-            console.log("SAMPLE REVIEWS: ", sampleReviews);
+            // console.log("SAMPLE REVIEWS: ", sampleReviews);
             setSampleReviews(sampleReviews);
         });
     }, []);

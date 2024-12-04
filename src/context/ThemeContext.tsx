@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         const setThemeBasedOnPreference = () => {
           const isDarkMode: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
           document.documentElement.setAttribute('data-bs-theme', isDarkMode ? 'dark' : 'light');
-          console.log("isDarkMode: ", isDarkMode);
+          // console.log("isDarkMode: ", isDarkMode);
           setTheme(isDarkMode ? 'dark' : 'light');
         };
         

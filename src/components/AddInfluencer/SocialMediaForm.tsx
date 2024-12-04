@@ -20,9 +20,9 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
   const handlePlatformChange = (index: number, value: string) => {
     const updatedHandles = [...handles];
     updatedHandles[index].platform = value;
-    console.log("Platform update value:", value);
+    // console.log("Platform update value:", value);
     setHandles(updatedHandles);
-    console.log("Platform update updatedHandles:", handles);
+    // console.log("Platform update updatedHandles:", handles);
     updateParentMediaHandles(updatedHandles);
   };
 

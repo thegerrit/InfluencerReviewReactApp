@@ -11,9 +11,9 @@ const fetchUserDataByUserId = async (userId: string) => {
         // console.log(userSnap.data());
         return userSnap.data() as User;
     } else {
-        console.log("User ID does not exist");
-        console.log(userId);
-        console.log('No such document!');
+        // console.log("User ID does not exist");
+        // console.log(userId);
+        // console.log('No such document!');
         return null;
     }
 };
@@ -27,7 +27,7 @@ const updateUserDataByUserId = async (userId: string, displayName: string, conta
             userHandle: displayName,
             email: contactEmail
         });
-        console.log("User data updated successfully");
+        // console.log("User data updated successfully");
         return ["0", "User data updated successfully"];
     } catch (error) {
         console.error("Error updating user data: ", error);
