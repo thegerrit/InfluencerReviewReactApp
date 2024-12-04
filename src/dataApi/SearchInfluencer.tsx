@@ -33,13 +33,13 @@ const searchInfluencersWithPagination = async (searchTerm: string, searchField: 
   const influencersCol = collection(db, 'influencers');
   let q: Query;
   if (mode === "initial"){
-    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("dateCreated", "desc"), limit(pageSize));
+    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("__name__", "desc"), limit(pageSize));
   } else if (mode === "next"){
-    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("dateCreated", "desc"), startAfter(cursor), limit(pageSize));
+    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("__name__", "desc"), startAfter(cursor), limit(pageSize));
   } else if (mode === "previous"){
-    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("dateCreated", "desc"), endBefore(cursor), limitToLast(pageSize));
+    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("__name__", "desc"), endBefore(cursor), limitToLast(pageSize));
   } else if (mode === "backFromLast"){
-    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("dateCreated", "desc"), endAt(cursor), limitToLast(pageSize));
+    q = query(influencersCol, where(searchField, '==', searchTerm), orderBy("__name__", "desc"), endAt(cursor), limitToLast(pageSize));
   } else {
     throw new Error("Invalid pagination mode.");
   }

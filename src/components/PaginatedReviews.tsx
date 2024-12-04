@@ -7,7 +7,7 @@ interface PaginatedReviewsProps {
     queryBy: "influencerId" | "userId";
     queryValue: string;
 }
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 10;
 const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue }) => {
     const [reviews, setReviews] = useState<Review[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
