@@ -21,9 +21,9 @@ export default defineConfig({
         userProfile: resolve(__dirname, 'src/pages/html/userProfile.html'), // Entry point for "pages/addInfluencer.html" 
         setDisplayName: resolve(__dirname, 'src/pages/html/setDisplayName.html'), // Entry point for "pages/setDisplayName.html" 
         reviewHistory: resolve(__dirname, 'src/pages/html/reviewHistory.html'), // Entry point for "pages/reviewHistory.html"
-        contactUs: resolve(__dirname, 'src/pages/html/contactUs.html'), // Entry point for "pages/contactUs.html"
-        privacyPolicy: resolve(__dirname, 'src/pages/html/privacyPolicy.html'), // Entry point for "pages/privacyPolicy.html"
-        communityGuidelines: resolve(__dirname, 'src/pages/html/communityGuidelines.html'), // Entry point for "pages/communityGuidelines.html"
+        contactUs: resolve(__dirname, 'src/pages/html/ContactUs.html'), // Entry point for "pages/contactUs.html"
+        privacyPolicy: resolve(__dirname, 'src/pages/html/PrivacyPolicy.html'), // Entry point for "pages/privacyPolicy.html"
+        communityGuidelines: resolve(__dirname, 'src/pages/html/CommunityGuidelines.html'), // Entry point for "pages/communityGuidelines.html"
         // googleIconDark: resolve(__dirname, 'src/assets/web_dark_sq_ctn.svg'), // Entry point for dark theme Google icon
         // googleIconLight: resolve(__dirname, 'src/assets/web_light_sq_ctn.svg'), // Entry point for light theme Google icon
       }

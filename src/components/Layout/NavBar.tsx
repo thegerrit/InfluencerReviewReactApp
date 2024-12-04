@@ -11,7 +11,7 @@ const NavBar: React.FC = () => {
       <div className="container-fluid">
         {/* Navbar brand or logo */}
         <a className="navbar-brand" href="/" style={{ color: 'var(--bs-body-color)' }}>
-          Influencer Review
+          <img src="/logo.svg" alt="Logo" style={{ width: '28px', height: '28px' }} /> Influencer Review
         </a>
 
         {/* Toggle button for small screens */}
@@ -70,7 +70,7 @@ const NavBar: React.FC = () => {
                     onClick={async (e) => {
                       e.preventDefault();
                       await auth.signOut();
-                      window.location.href = '/login';
+                      window.location.href = '/';
                     }}
                   >
                     Log Out

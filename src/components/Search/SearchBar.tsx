@@ -8,7 +8,7 @@ import ReadInfluencerData from '../../model/ReadInfluencerData';
 import InfluencerSearchResult from './InfluencerSearchResult';
 import '../../styles/search.css';
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 5;
 const SearchBar: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [searchField, setSearchField] = useState('firstName');
@@ -36,7 +36,7 @@ const SearchBar: React.FC = () => {
       setLastSearchText(searchText);
       fetchInfluencers(searchText.toLowerCase(), searchField);
       setMode("next");
-      setCurrentPage(1);
+      setCurrentPage(0);
     }
   };
 
@@ -129,9 +129,9 @@ const SearchBar: React.FC = () => {
           </button>
         </div>
       </form>
-      {(influencers.length > 0 && currentPage > 0) &&
+      
         <div>
-          <table className="table">
+        {(influencers.length > 0) &&<table className="table">
             <thead>
               <tr>
                 <th>Name</th>
@@ -146,9 +146,9 @@ const SearchBar: React.FC = () => {
                 <InfluencerSearchResult influencer={influencer} />
               ))}
             </tbody>
-          </table>
+          </table>}
           <div className="d-flex justify-content-center">
-            {currentPage > 1 && <div className="d-flex justify-content-start">
+            {currentPage > 0 && <div className="d-flex justify-content-start">
               <button
                 type="button"
                 className="btn btn-secondary me-2"
@@ -160,6 +160,7 @@ const SearchBar: React.FC = () => {
                 Previous
               </button>
             </div>}
+            {/* <p>Page {currentPage}</p> */}
             {influencers.length === PAGE_SIZE && <div className="d-flex justify-content-end">
               <button
                 type="button"
@@ -170,7 +171,7 @@ const SearchBar: React.FC = () => {
               </button>
             </div>}
           </div>
-        </div>}
+        </div>
     </div>
   );
 };

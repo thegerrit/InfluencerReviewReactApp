@@ -8,10 +8,14 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "buildwatch": "tsc -b && vite build --watch"
+    "buildwatch": "tsc -b && vite build --watch",
+    "start": "node index.js",
+    "serve": "npx functions-framework --target=serveViteApp [--signature-type=http] --port=3000"
   },
   "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.2",
     "bootstrap": "^5.3.3",
+    "express": "^4.19.2",
     "firebase": "^11.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

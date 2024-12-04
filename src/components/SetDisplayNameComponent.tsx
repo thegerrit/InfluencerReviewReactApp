@@ -6,6 +6,7 @@ import User from '../model/User';
 const SetDisplayNameComponent: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
   const [contactEmail, setContactEmail] = useState(auth.currentUser?.email || '');
+  const [privacyPolicyChecked, setPrivacyPolicyChecked] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,6 +59,7 @@ const SetDisplayNameComponent: React.FC = () => {
               type="checkbox"
               id="privacyPolicy"
               className="form-check-input"
+              onChange={(e) => setPrivacyPolicyChecked(e.target.checked)}
               required
             />
             <label htmlFor="privacyPolicy" className="form-check-label">
@@ -65,7 +67,7 @@ const SetDisplayNameComponent: React.FC = () => {
             </label>
           </div>
         </div>
-        <button type="submit" className="btn btn-primary w-100" onClick={handleSubmit}>Save Display Name</button>
+        <button type="submit" className="btn btn-primary w-100" onClick={handleSubmit} disabled={!privacyPolicyChecked || displayName === ''}>Save Display Name</button>
         <p className="text-center mt-3 text-danger">{responseMessage}</p>
       </form>
     </div>

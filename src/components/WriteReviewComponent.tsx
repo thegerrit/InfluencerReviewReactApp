@@ -15,9 +15,25 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
   const [starRating, setStarRating] = useState<number>(0);
   const [reviewText, setReviewText] = useState<string>('');
   const [isGuidelinesChecked, setIsGuidelinesChecked] = useState<boolean>(false);
+  const [minLengthError, setMinLengthError] = useState<string>('');
+  const [maxLengthError, setMaxLengthError] = useState<string>('');
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (reviewText.length < 15) {
+      setMinLengthError('Reviews must have a minimum length of 15 characters');
+      return;
+    } else {
+      setMinLengthError('');
+    }
+
+    if (reviewText.length > 1500) {
+      setMaxLengthError('Review has exceeded maximum length of 1500 characters');
+      return;
+    } else {
+      setMaxLengthError('');
+    }
+
     const formData: WriteReview = {
       userId: auth.currentUser?.uid || "",
       influencerId: influencerId,
@@ -59,6 +75,8 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
               onChange={(e) => setReviewText(e.target.value)}
             />
           </label>
+          {minLengthError && <p className="text-danger">{minLengthError}</p>}
+          {maxLengthError && <p className="text-danger">{maxLengthError}</p>}
         </div>
         <div className="mb-3 form-check">
           <input

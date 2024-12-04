@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
+// import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+// import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { collection, getDocs, getFirestore, setLogLevel, } from 'firebase/firestore';
+import { getAuth, } from 'firebase/auth';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -18,10 +20,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+/** Uncomment for local testing */
 // Connect to Firestore emulator
-connectFirestoreEmulator(db, '127.0.0.1', 8080);
+// connectFirestoreEmulator(db, '127.0.0.1', 8081);
 
 // Connect to Auth emulator
-connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+// connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+
+
+/** Uncomment for debugging */
+// setLogLevel('debug');
+// async function testFirestore() {
+//     try {
+//       const querySnapshot = await getDocs(collection(db, "testCollection"));
+//       querySnapshot.forEach((doc) => {
+//         console.log(`${doc.id} => ${doc.data()}`);
+//       });
+//     } catch (e) {
+//       console.error("Error fetching documents: ", e);
+//     }
+//   }
+  
+// testFirestore();
 
 export { db, auth };
