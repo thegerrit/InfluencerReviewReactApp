@@ -11,7 +11,7 @@ import path from 'path';
 const app = express();
 const __dirname = path.resolve();
 const staticAssetsPath = path.join(__dirname, 'dist');
-console.log(staticAssetsPath);
+// console.log(staticAssetsPath);
 
 // Serve static files from the Vite build directory
 app.use(express.static(staticAssetsPath));
