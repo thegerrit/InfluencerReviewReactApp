@@ -77,7 +77,7 @@ const SearchBar: React.FC = () => {
   const fetchInfluencers = async (searchTerm: string, searchField: string) => {
     try {
       let influencerSnapshot: QuerySnapshot;
-      console.log("search on initial page");
+      // console.log("search on initial page");
       influencerSnapshot = await searchInfluencersWithPagination(searchTerm, searchField, PAGE_SIZE, null, mode);
 
       const influencerList: ReadInfluencerData[] = influencerSnapshot.docs.map(doc => ({

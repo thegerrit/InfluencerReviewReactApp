@@ -14,7 +14,7 @@ const writeReviewToFirestore = async (review: WriteReview, influencerId: string)
     await runTransaction(db, async (transaction) => {
       const influencerDocSnapshot = await transaction.get(influencerDocRef);
       const influencerData = influencerDocSnapshot.data();
-      console.log("INFLUENCER DATA: ", influencerData);
+      // console.log("INFLUENCER DATA: ", influencerData);
       if (influencerData) {
         const userDisplayName = await transaction.get(doc(db, "users", review.userId))
         // create the review
@@ -37,7 +37,7 @@ const writeReviewToFirestore = async (review: WriteReview, influencerId: string)
       }
     });
 
-    console.log("Review successfully written!");
+    // console.log("Review successfully written!");
   } catch (error) {
     console.error("Error writing review: ", error);
   }

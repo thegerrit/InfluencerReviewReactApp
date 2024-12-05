@@ -8,6 +8,6 @@ import AddInfluencerPage from '../../components/AddInfluencer/AddInfluencerCompo
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <script src="../../utils/setTheme.js"></script>
-      <AppContainer ComponentProp={<AddInfluencerPage />}/>
+      <AppContainer ComponentProp={<AddInfluencerPage />} />
   </StrictMode>,
 )

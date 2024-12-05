@@ -12,14 +12,15 @@ import { ThemeProvider } from '../../context/ThemeContext';
 // import { auth } from '../../utils/FirebaseConfig';
 interface DisplayComponentProps {
   ComponentProp: ReactNode;
+  displayNav?: boolean;
 }
 
-const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp}) => {
+const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp, displayNav = true}) => {
 
   return (
     <ThemeProvider>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Navbar />
+        {displayNav && <Navbar />}
         {/* <div style={{ ...containerStyles, flex: '1' }}> */}
         <div className='app-container'>
           {ComponentProp}
