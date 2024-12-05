@@ -15,23 +15,35 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
   const [starRating, setStarRating] = useState<number>(0);
   const [reviewText, setReviewText] = useState<string>('');
   const [isGuidelinesChecked, setIsGuidelinesChecked] = useState<boolean>(false);
-  const [minLengthError, setMinLengthError] = useState<string>('');
-  const [maxLengthError, setMaxLengthError] = useState<string>('');
+  // const [minLengthError, setMinLengthError] = useState<string>('');
+  // const [maxLengthError, setMaxLengthError] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const reviewValidation = () => {
+    
     if (reviewText.length < 15) {
-      setMinLengthError('Reviews must have a minimum length of 15 characters');
-      return;
-    } else {
-      setMinLengthError('');
+      setErrorMessage('Reviews must have a minimum length of 15 characters');
+      return false;
+    } 
+  
+    if (reviewText.length > 1500) {
+      setErrorMessage('Review has exceeded maximum length of 1500 characters');
+      return false;
+    } 
+
+    if (![1, 2, 3, 4, 5].includes(starRating)) {
+      setErrorMessage('Star rating must be an integer between 1 and 5');
+      return false;
     }
 
-    if (reviewText.length > 1500) {
-      setMaxLengthError('Review has exceeded maximum length of 1500 characters');
+    setErrorMessage('');
+    return true;  
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!reviewValidation()) {
       return;
-    } else {
-      setMaxLengthError('');
     }
 
     const formData: WriteReview = {
@@ -44,9 +56,12 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
       starRating: starRating,
     };
     // console.log(formData);
-    writeReviewToFirestore(formData, influencerId)
+    await writeReviewToFirestore(formData, influencerId)
       .then(() => {
         window.location.reload();
+      }).catch((error) => {
+        setErrorMessage('Before writing your review, setup your display name at influencer-review.com/setDisplayName');
+        console.error("Error writing review: ", error);
       });
   };
 
@@ -75,8 +90,7 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
               onChange={(e) => setReviewText(e.target.value)}
             />
           </label>
-          {minLengthError && <p className="text-danger">{minLengthError}</p>}
-          {maxLengthError && <p className="text-danger">{maxLengthError}</p>}
+          {errorMessage && <p className="text-danger">{errorMessage}</p>}
         </div>
         <div className="mb-3 form-check">
           <input
