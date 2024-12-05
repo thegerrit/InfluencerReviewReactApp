@@ -30,7 +30,7 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
     const updatedHandles = [...handles];
     updatedHandles[index].handle = value;
     setHandles(updatedHandles);
-    console.log("Handle update updatedHandles:", handles);
+    // console.log("Handle update updatedHandles:", handles);
     updateParentMediaHandles(updatedHandles);
   };
 
