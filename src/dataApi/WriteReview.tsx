@@ -10,13 +10,16 @@ const writeReviewToFirestore = async (review: WriteReview, influencerId: string)
   const reviewsCollectionRef = collection(db, "reviews");
   const influencerDocRef = doc(db, "influencers", influencerId);
 
-  try {
+  // try {
     await runTransaction(db, async (transaction) => {
       const influencerDocSnapshot = await transaction.get(influencerDocRef);
       const influencerData = influencerDocSnapshot.data();
       // console.log("INFLUENCER DATA: ", influencerData);
       if (influencerData) {
         const userDisplayName = await transaction.get(doc(db, "users", review.userId))
+        if (!userDisplayName.exists()) {
+          throw new Error("User display name not found");
+        }
         // create the review
         const reviewDocRef = doc(reviewsCollectionRef);
         transaction.set(reviewDocRef, {
@@ -38,9 +41,10 @@ const writeReviewToFirestore = async (review: WriteReview, influencerId: string)
     });
 
     // console.log("Review successfully written!");
-  } catch (error) {
-    console.error("Error writing review: ", error);
-  }
-}
+  } 
+  // catch (error) {
+  //   console.error("Error writing review: ", error);
+  // }
+// }
 
 export default writeReviewToFirestore;

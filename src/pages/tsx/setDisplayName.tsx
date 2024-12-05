@@ -5,6 +5,6 @@ import SetDisplayNameComponent from '../../components/SetDisplayNameComponent'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppContainer ComponentProp={<SetDisplayNameComponent />}/>
+    <AppContainer ComponentProp={<SetDisplayNameComponent />} displayNav={false}/>
   </StrictMode>,
 )
