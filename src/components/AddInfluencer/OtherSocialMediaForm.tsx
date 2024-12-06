@@ -58,7 +58,7 @@ const OtherSocialMediaForm: React.FC<OtherSocialMediaFormProps> = ({updateParent
 
       {showForm && (
         <div className="container mt-4">
-          <h3>Add Other Social Media Handles</h3>
+          <h3>Add Unlisted Website</h3>
           <div className="row g-3">
             {handles.map((item, index) => (
               <div className="row g-3 align-items-end" key={index}>
@@ -98,10 +98,17 @@ const OtherSocialMediaForm: React.FC<OtherSocialMediaFormProps> = ({updateParent
 
             <div className="col-12 mt-3">
               {handles.length < maxRows && (
-                <button type="button" className="btn btn-secondary" onClick={addHandleRow}>
+                <button type="button" className="btn btn-success" onClick={addHandleRow}>
                   Add Handle
                 </button>
               )}
+              <button
+                type="button"
+                className="btn btn-secondary ms-2"
+                onClick={() => setShowForm(false)}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
