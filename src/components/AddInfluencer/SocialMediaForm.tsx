@@ -27,10 +27,12 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
   };
 
   const handleInputChange = (index: number, value: string) => {
+    // Remove @ and # symbols from the input value
+    const sanitizedValue = value.replace(/[@#]/g, '');
+    
     const updatedHandles = [...handles];
-    updatedHandles[index].handle = value;
+    updatedHandles[index].handle = sanitizedValue;
     setHandles(updatedHandles);
-    // console.log("Handle update updatedHandles:", handles);
     updateParentMediaHandles(updatedHandles);
   };
 
@@ -105,7 +107,7 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
         <div className="col-12 mt-3">
           {/* <button type="submit" className="btn btn-primary me-2">Submit</button> */}
           {handles.length < maxRows && (
-            <button type="button" className="btn btn-secondary" onClick={addHandleRow}>
+            <button type="button" className="btn btn-info" onClick={addHandleRow}>
               Add Handle
             </button>
           )}

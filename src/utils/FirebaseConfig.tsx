@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
-// import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-// import { getAuth, connectAuthEmulator } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth, } from 'firebase/auth';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
+// import { getFirestore } from 'firebase/firestore';
+// import { getAuth, } from 'firebase/auth';
 
 
 // Firebase configuration
@@ -22,11 +22,11 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 /** Uncomment for local emulator testing */
-// Connect to Firestore emulator
-// connectFirestoreEmulator(db, '127.0.0.1', 8081);
+// // Connect to Firestore emulator
+connectFirestoreEmulator(db, '127.0.0.1', 8081);
 
 // // Connect to Auth emulator
-// connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+connectAuthEmulator(auth, 'http://127.0.0.1:9099');
 
 
 /** Uncomment for debugging */
