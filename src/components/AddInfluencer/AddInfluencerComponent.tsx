@@ -51,10 +51,14 @@ const AddInfluencerPage: React.FC = () => {
   }
   // ------- other social media handles
   const updateOtherMediaHandles = (handles: {platform: string, handle: string}[]) => {
-    setInfluencerData((prevData) => ({
-        ...prevData,
-        otherMediaHandles: handles
-    }));
+    for (const handle of handles) {
+      if (handle.handle !== "" && handle.platform !== "") {
+        setInfluencerData((prevData) => ({
+            ...prevData,
+          otherMediaHandles: handles
+        }));
+      }
+    }
   }
 
   // -------- tags in influencerData
