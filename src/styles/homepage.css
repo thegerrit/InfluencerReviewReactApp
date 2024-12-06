@@ -1,0 +1,13 @@
+.homepage-line {
+    font-size: '1rem'; 
+    line-height: '1.6'; 
+    margin-bottom: '2rem';
+    padding: '0 1rem'; /* Padding for smaller screens*/
+    text-align: 'left'; /* Justify text to the left*/
+}
+
+.homepage-text {
+    margin-bottom: '2rem';
+    text-align: 'left' !important;
+    justify-content: 'left';
+}
