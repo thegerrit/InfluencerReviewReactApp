@@ -2,10 +2,16 @@ import { PLATFORMS } from './Constants';
 import WriteInfluencerData from '../model/WriteInfluencerData';
 
 function validateInfluencerData(data: WriteInfluencerData): [string, string] {
+  // trim leading and trailing whitespace from all firstName and lastName
+  data.firstName = data.firstName.trim();
+  data.lastName = data.lastName.trim();
+
   // Check for first name
   if (!data.firstName.trim()) {
     return ["1", "First name is required."];
   }
+
+
 
   // Check for at least one valid social media handle
   const hasValidPlatform = PLATFORMS.some(platform => {
