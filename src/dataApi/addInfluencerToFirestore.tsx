@@ -19,7 +19,7 @@ async function checkHandlesInUse(influencer: WriteInfluencerData): Promise<strin
   const handlesInUse: string[] = [];
   const handleChecks = PLATFORMS.map(async (platform: string) => {
     if (influencer[platform.toLowerCase() as keyof WriteInfluencerData]) {
-      const queryRef = query(collection(db, 'influencers'), where(platform.toLowerCase(), '==', influencer[platform.toLowerCase() as keyof WriteInfluencerData]));
+      const queryRef = query(collection(db, 'influencers'), where(platform.toLowerCase(), '==', String(influencer[platform.toLowerCase() as keyof WriteInfluencerData]).toLowerCase()));
       const docs = await getDocs(queryRef);
       if (docs.size > 0) {
         handlesInUse.push(platform.toLowerCase() + ":" + influencer[platform.toLowerCase() as keyof WriteInfluencerData]);
