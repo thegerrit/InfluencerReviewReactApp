@@ -107,7 +107,7 @@ const SocialMediaForm: React.FC<SocialMediaFormProps> = ({updateParentMediaHandl
         <div className="col-12 mt-3">
           {/* <button type="submit" className="btn btn-primary me-2">Submit</button> */}
           {handles.length < maxRows && (
-            <button type="button" className="btn btn-info" onClick={addHandleRow}>
+            <button type="button" className="btn btn-success" onClick={addHandleRow}>
               Add Handle
             </button>
           )}
