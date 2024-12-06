@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../utils/FirebaseConfig';
 import SignIn from './SignIn';
+import '../styles/homepage.css';
 // import { useAuth } from '../context/AuthContext';
 const HomePage: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<string | null>(null);
@@ -39,20 +40,21 @@ const HomePage: React.FC = () => {
       >
         Influencer Review
       </h2>
-      
-      <p 
-        style={{ 
-          fontSize: '1rem', 
-          lineHeight: '1.6', 
-          marginBottom: '2rem',
-          padding: '0 1rem', // Padding for smaller screens
-          textAlign: 'left' // Justify text to the left
-        }}
-      >
-        Welcome to Influencer Review! This space is meant for social media marketers to 
-        share their experiences working with influencers. Read reviews to learn what others are saying about influencers.
-        Write a review to share your experience. Be sure to follow the <a href="/CommunityGuidelines" target="_blank">Community Guidelines</a>.
-      </p>
+      <div className="homepage-text" style={{textAlign: 'left'}}>
+        <p className="homepage-line">
+          Welcome to Influencer Review! This website is meant for social media marketers to 
+          share their experiences working with influencers.
+        </p> 
+        <p className="homepage-line">
+          <strong>Search for influencers</strong> to find what others are saying about them. You can add influencers if they are missing.
+        </p>
+        <p className="homepage-line">
+          <strong>Read reviews</strong> written by other social media marketers.
+        </p>
+        <p className="homepage-line">
+          <strong>Write a review</strong> to share your experience. Be sure to follow the <a href="/CommunityGuidelines" target="_blank">Community Guidelines</a>.
+        </p>
+      </div>
         <div>
         {currentUser && <button 
             className="btn btn-primary"

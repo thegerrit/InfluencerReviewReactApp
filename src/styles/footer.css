@@ -1,5 +1,6 @@
 .custom-footer {
     padding: 0 0rem 0.5rem 0rem !important;
+    background-color: var(--bs-secondary-bg-subtle) !important;
     
     /* margin-top: 0.5rem; */
 }

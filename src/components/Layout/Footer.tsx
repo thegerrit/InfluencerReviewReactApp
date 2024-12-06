@@ -24,7 +24,8 @@ const Footer: React.FC = () => {
                                 <a href="/ContactUs">Contact Us</a>
                             </li>
                         </ul>
-                        <p className="mb-0">&copy; {new Date().getFullYear()} Rate My Influencer. All rights reserved.</p>
+                        <p className="mb-0">&copy; {new Date().getFullYear()} Influencer Review.</p>
+                        <p className="mb-0">This content is protected by copyright law.</p>
                     </div>
                 </div>
             </div>
