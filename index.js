@@ -16,6 +16,14 @@ const staticAssetsPath = path.join(__dirname, 'dist');
 // Serve static files from the Vite build directory
 app.use(express.static(staticAssetsPath));
 
+// Middleware to set MIME type for JavaScript files
+app.use((req, res, next) => {
+  if (req.path.endsWith('.js')) {
+    res.setHeader('Content-Type', 'application/javascript');
+  }
+  next();
+});
+
 app.get('/search', (req, res) => {
     res.sendFile(path.join(staticAssetsPath, 'src/pages/html/search.html'));
   });
