@@ -15,11 +15,11 @@ const TagsInputForm: React.FC<TagsInputFormProps> = ({ tags, addTag, removeTag }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === ' ' || event.key === 'Enter') {
+    if (event.key === 'Enter') {
       event.preventDefault();
       const newTag = tagInput.trim().toLowerCase();
       // remove invalid characters from newTag
-      const validTag = newTag.replace(/[^a-z0-9_]/g, '');
+      const validTag = newTag.replace(/[^a-z0-9_ ]/g, '');
       if (validTag && !tags.includes(validTag)) {
         addTag(validTag);
       }
