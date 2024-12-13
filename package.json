@@ -6,15 +6,20 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:test": "tsc -b && vite build --mode test",
+    "build:prod": "tsc -b && vite build --mode prod",
     "lint": "eslint .",
     "preview": "vite preview",
     "buildwatch": "tsc -b && vite build --watch",
     "start": "node index.js",
-    "serve": "npx functions-framework --target=serveViteApp [--signature-type=http] --port=3000"
+    "serve": "npx functions-framework --target=serveViteApp [--signature-type=http] --port=3000",
+    "deploy:test": "npm run build:test && gcloud functions deploy InfluencerReviewAppTest --runtime=nodejs18 --region=us-east4 --trigger-http --allow-unauthenticated --entry-point=serveViteApp --source=.",
+    "deploy:prod": "npm run build:prod && gcloud functions deploy InfluencerReviewApp --runtime=nodejs18 --region=us-east4 --trigger-http --allow-unauthenticated --entry-point=serveViteApp --source=."
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.4.2",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
     "express": "^4.19.2",
     "firebase": "^11.0.2",
     "react": "^18.3.1",
