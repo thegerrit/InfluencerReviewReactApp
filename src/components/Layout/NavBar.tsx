@@ -2,10 +2,12 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../../styles/navbar.css';
-import { auth } from '../../utils/FirebaseConfig';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
+import { getAuth } from 'firebase/auth';
 
 const NavBar: React.FC = () => {
+  const { currentUser } = useAuth();
   return (
     <nav className={`navbar navbar-expand-lg custom-navbar ${useTheme() === 'dark' ? '' : 'light'}`}>
       <div className="container-fluid">
@@ -54,12 +56,12 @@ const NavBar: React.FC = () => {
               </span>
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
-                  <a className="dropdown-item" href={`/userProfile?userId=${auth.currentUser?.uid}`}>
+                  <a className="dropdown-item" href={`/userProfile?userId=${currentUser?.uid}`}>
                     User Profile
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href={`/reviewHistory?userId=${auth.currentUser?.uid}`}>
+                  <a className="dropdown-item" href={`/reviewHistory?userId=${currentUser?.uid}`}>
                     Your Reviews
                   </a>
                 </li>
@@ -69,7 +71,7 @@ const NavBar: React.FC = () => {
                     href="/login"
                     onClick={async (e) => {
                       e.preventDefault();
-                      await auth.signOut();
+                      await getAuth().signOut();
                       window.location.href = '/';
                     }}
                   >

@@ -16,7 +16,8 @@ const AddInfluencerPage: React.FC = () => {
     otherMediaHandles: [],
     numberOfReviews: 0,
     tags: [],
-    dateCreated: new Date()
+    dateCreated: new Date(),
+    adAgency: ''
   });
   const [validationError, setValidationError] = useState<string>("");
 
@@ -130,6 +131,16 @@ const AddInfluencerPage: React.FC = () => {
             id="lastName"
             value={influencerData.lastName}
             onChange={(e) => handleChange(e, 'lastName')}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="adAgency" className="form-label">Advertising Agency</label>
+          <input
+            type="text"
+            className="form-control"
+            id="adAgency"
+            value={influencerData.adAgency}
+            onChange={(e) => handleChange(e, 'adAgency')}
           />
         </div>
 

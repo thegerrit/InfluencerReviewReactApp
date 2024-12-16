@@ -27,7 +27,7 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
               <span className="ms-2">{influencer.starRating.toFixed(2)}</span>
             </div>
           </div>
-
+          
           {/* Social Media Handles */}
           <div className="mb-4">
             <h2 className="h5 mb-3">Popular Platforms</h2>
@@ -46,6 +46,13 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
               })}
             </div>
           </div>
+
+          {influencer.adAgency && (
+            <div className="mb-4">
+              <h2 className="h5 mb-3">Advertising Agency</h2>
+              <p>{influencer.adAgency.split(' ').map(word => capitalizeFirstLetter(word)).join(' ')}</p>
+            </div>
+          )}
 
           {/* Other Media Handles */}
           {influencer.otherMediaHandles.length > 0 && (
