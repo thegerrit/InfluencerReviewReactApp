@@ -9,6 +9,7 @@ import withAuth from '../../utils/withAuth';
 import Footer from './Footer';
 import '../../styles/common.css';
 import { ThemeProvider } from '../../context/ThemeContext';
+import { AuthProvider } from '../../context/AuthContext';
 // import { auth } from '../../utils/FirebaseConfig';
 interface DisplayComponentProps {
   ComponentProp: ReactNode;
@@ -19,6 +20,7 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp, displayNa
 
   return (
     <ThemeProvider>
+      <AuthProvider>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         {displayNav && <Navbar />}
         {/* <div style={{ ...containerStyles, flex: '1' }}> */}
@@ -27,7 +29,7 @@ const AppContainer: React.FC<DisplayComponentProps> = ({ComponentProp, displayNa
         </div>
         <Footer />
       </div>
-
+      </AuthProvider>
     </ThemeProvider>
   )
 }

@@ -3,6 +3,7 @@ import MediaHandle from './MediaHandle';
 interface WriteInfluencerData {
     firstName: string;
     lastName: string;
+    adAgency?: string;
     starRating: number;
     // popularMediaHandles: MediaHandle[];
     otherMediaHandles: MediaHandle[];

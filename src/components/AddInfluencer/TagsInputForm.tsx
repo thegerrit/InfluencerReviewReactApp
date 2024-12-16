@@ -49,7 +49,7 @@ const TagsInputForm: React.FC<TagsInputFormProps> = ({ tags, addTag, removeTag }
           value={tagInput}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          placeholder="Enter tags separated by spaces or press Enter"
+          placeholder="Type your tag and press Enter to add it"
         />
       </div>
     </div>
