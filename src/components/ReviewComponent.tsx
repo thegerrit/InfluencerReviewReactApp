@@ -71,7 +71,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
         <h5 className="mb-0">
           <a className="review-user-link"
             href={`/userProfile?userId=${userId}`}
-          >{userName}</a> <span style={{ fontWeight: "lighter", opacity: "60%" }}>reviewed </span> 
+          >{userName}</a> <span style={{ fontWeight: "lighter", opacity: "90%" }}>reviewed </span> 
           <a className="review-influencer-link" href={`/influencer?id=${influencerId}`}>{influencerName}</a> <br />
           <span className="ms-2 text-warning review-star-rating">{"⭐".repeat(starRating)}</span>
         </h5>

@@ -44,6 +44,11 @@ const SignIn: React.FC = () => {
           style={{ cursor: 'pointer', width: '189px', height: '40px' }} 
         />
       </div>
+      <div style={{ marginTop: '1rem', opacity: 0.8 }}>
+          <a href="/browse">
+            Browse posts without signing in
+          </a>
+        </div>
     </div>
   );
 };
