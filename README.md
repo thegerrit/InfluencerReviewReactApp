@@ -5,6 +5,11 @@
 
 ## Changelog
 
+
+## release 1.0.3
+- Users can browse posts without signing in
+- Styling fix on review component 
+
 ## release 1.0.2
 - appended version number to asset files to ensure desired caching behavior
 - added auth context to handle user authentication and fix a bug navigating to User Profile page

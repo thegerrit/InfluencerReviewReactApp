@@ -4,7 +4,7 @@ import SignIn from './SignIn';
 import '../styles/homepage.css';
 // import { useAuth } from '../context/AuthContext';
 const HomePage: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<string | null>('initial');
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -69,6 +69,7 @@ const HomePage: React.FC = () => {
             Let's Go
           </button>}
           {!currentUser && <SignIn />}
+        
         </div>
       
     </div>
