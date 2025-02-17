@@ -19,9 +19,10 @@ interface ReviewProps {
   starRating: number;
   upvotes: number;
   downvotes: number;
+  isAnonymous: boolean;
 }
 
-const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, influencerId, influencerName, date, textContent, starRating, upvotes, downvotes }) => {
+const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, influencerId, influencerName, date, textContent, starRating, upvotes, downvotes, isAnonymous }) => {
   const [_upvotes, set_Upvotes] = useState(upvotes);
   const [_downvotes, set_Downvotes] = useState(downvotes);
   const [hasVoted, setHasVoted] = useState(false);
@@ -69,9 +70,11 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
         className={`review-header ${useTheme() === 'dark' ? '' : 'light'}`}
       >
         <h5 className="mb-0">
+          {isAnonymous ? <span style={{ fontStyle: "italic" }}>Anonymous</span> : 
           <a className="review-user-link"
             href={`/userProfile?userId=${userId}`}
-          >{userName}</a> <span style={{ fontWeight: "lighter", opacity: "90%" }}>reviewed </span> 
+          >{userName}</a>}
+          <span style={{ fontWeight: "lighter", opacity: "90%" }}> reviewed </span> 
           <a className="review-influencer-link" href={`/influencer?id=${influencerId}`}>{influencerName}</a> <br />
           <span className="ms-2 text-warning review-star-rating">{"⭐".repeat(starRating)}</span>
         </h5>

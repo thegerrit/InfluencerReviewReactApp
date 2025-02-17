@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import AppContainer from '../../components/Layout/AppContainer'
+import { NoAuthAppContainer } from '../../components/Layout/AppContainer'
 import InfluencerDetails from '../../components/InfluencerDetails.tsx';
 import ReadInfluencerData from '../../model/ReadInfluencerData.tsx';
 import GetInfluencerById from '../../dataApi/GetInfluencerById.tsx';
@@ -44,7 +44,8 @@ const InfluencerPage: React.FC = () => {
 
   return (
     <StrictMode>
-      <AppContainer ComponentProp={<InfluencerDetails influencerId={_influencerId} influencer={influencer}/>} />
+      {/* <AppContainer ComponentProp={<InfluencerDetails influencerId={_influencerId} influencer={influencer}/>} /> */}
+      <NoAuthAppContainer ComponentProp={<InfluencerDetails influencerId={_influencerId} influencer={influencer}/>} />
     </StrictMode>
   );
 };

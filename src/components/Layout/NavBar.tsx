@@ -35,11 +35,13 @@ const NavBar: React.FC = () => {
                 Browse
               </a>
             </li>
-            <li className="nav-item custom-nav-item">
-              <a className="nav-link text-decoration-none" href="/contactUs" style={{ color: 'var(--bs-body-color)' }}>
-                Contact Us
-              </a>
-            </li>
+            {currentUser && (
+              <li className="nav-item custom-nav-item">
+                <a className="nav-link text-decoration-none" href="/contactUs" style={{ color: 'var(--bs-body-color)' }}>
+                  Contact Us
+                </a>
+              </li>
+            )}
           </ul>
 
           {/* Right-aligned item */}
@@ -55,29 +57,39 @@ const NavBar: React.FC = () => {
                 Account
               </span>
               <ul className="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a className="dropdown-item" href={`/userProfile?userId=${currentUser?.uid}`}>
-                    User Profile
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href={`/reviewHistory?userId=${currentUser?.uid}`}>
-                    Your Reviews
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="/login"
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      await getAuth().signOut();
-                      window.location.href = '/';
-                    }}
-                  >
-                    Log Out
-                  </a>
-                </li>
+                {currentUser ? (
+                  <>
+                    <li>
+                      <a className="dropdown-item" href={`/userProfile?userId=${currentUser.uid}`}>
+                        User Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href={`/reviewHistory?userId=${currentUser.uid}`}>
+                        Your Reviews
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="/login"
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          await getAuth().signOut();
+                          window.location.href = '/';
+                        }}
+                      >
+                        Log Out
+                      </a>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <a className="dropdown-item" href="/">
+                      Sign in
+                    </a>
+                  </li>
+                )}
               </ul>
             </li>
           </ul>

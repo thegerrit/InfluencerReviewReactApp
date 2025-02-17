@@ -16,9 +16,14 @@ const writeReviewToFirestore = async (review: WriteReview, influencerId: string)
       const influencerData = influencerDocSnapshot.data();
       // console.log("INFLUENCER DATA: ", influencerData);
       if (influencerData) {
-        const userDisplayName = await transaction.get(doc(db, "users", review.userId))
-        if (!userDisplayName.exists()) {
-          throw new Error("User display name not found");
+        console.log("REVIEW: ", review);
+        let userHandle: string = "Anonymous";
+        if (!review.isAnonymous) {
+          const userDisplayName = await transaction.get(doc(db, "users", review.userId))
+          if (!userDisplayName.exists()) {
+            throw new Error("User display name not found");
+          }
+          userHandle = userDisplayName.data()?.userHandle;
         }
         // create the review
         const reviewDocRef = doc(reviewsCollectionRef);
@@ -26,7 +31,7 @@ const writeReviewToFirestore = async (review: WriteReview, influencerId: string)
           ...review,
           upvotes: 0,
           downvotes: 0,
-          userName: userDisplayName.data()?.userHandle
+          userName: review.isAnonymous ? "Anonymous" : userHandle
         });
 
         // update the influencer document with the average rating and number of reviews

@@ -17,6 +17,8 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
     const [mode, setMode] = useState<"next" | "previous" | "backFromLast" | "initial">("initial");
 
     useEffect(() => {
+        console.log("queryBy: ", queryBy);
+        console.log("queryValue: ", queryValue);
         const fetchReviews = async () => {
             let reviewsSnapshot: QuerySnapshot;
             if (mode === "initial") {
@@ -33,6 +35,8 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
                 ...doc.data()
             }) as Review);
             setReviews(someReviews);
+            console.log("someReviews: ", someReviews);
+
             if (someReviews.length > 0) {
                 // setFirstDoc(lastDoc);
                 // } else {
