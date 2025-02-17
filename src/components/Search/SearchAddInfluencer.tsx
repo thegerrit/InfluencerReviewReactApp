@@ -2,9 +2,13 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../../styles/InfluencerSearchResult.css';
 import '../../styles/InfluencerSearchResult.css';
+import { auth } from '../../utils/FirebaseConfig';
 
 const AddInfluencer: React.FC = () => {
   const handleClick = () => {
+    if (!auth.currentUser) {
+      alert("Please log in to add an influencer.");
+    }
     window.location.href = '/AddInfluencer';
   };
 

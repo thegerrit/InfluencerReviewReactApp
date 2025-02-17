@@ -18,6 +18,7 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
   // const [minLengthError, setMinLengthError] = useState<string>('');
   // const [maxLengthError, setMaxLengthError] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isAnonymous, setIsAnonymous] = useState<boolean>(auth.currentUser ? false : true);
 
   const reviewValidation = () => {
     
@@ -47,15 +48,15 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
     }
 
     const formData: WriteReview = {
-      userId: auth.currentUser?.uid || "",
+      userId: isAnonymous ? "Anon" : auth.currentUser?.uid || "",
       influencerId: influencerId,
       influencerName: influencerName,
-      isAnonymous: false,
+      isAnonymous: isAnonymous,
       date: new Date().toISOString(),
       textContent: reviewText,
       starRating: starRating,
     };
-    // console.log(formData);
+    console.log("FORM DATA: ", formData);
     await writeReviewToFirestore(formData, influencerId)
       .then(() => {
         window.location.reload();
@@ -92,6 +93,21 @@ const WriteReviewComponent: React.FC<WriteReviewProps> = ({ influencerId, influe
           </label>
           {errorMessage && <p className="text-danger">{errorMessage}</p>}
         </div>
+
+        <div className="mb-3 form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="anonymousCheck"
+              checked={!auth.currentUser || isAnonymous}
+              disabled={!auth.currentUser}
+              onChange={(e) => setIsAnonymous(e.target.checked)}
+            />
+            <label className="form-check-label" htmlFor="anonymousCheck">
+              Make post anonymous
+            </label>
+        </div>
+
         <div className="mb-3 form-check">
           <input
             type="checkbox"

@@ -4,6 +4,7 @@ import InfluencerData from '../model/ReadInfluencerData';
 import PaginatedReviews from './PaginatedReviews';
 import { PLATFORMS } from '../utils/Constants';
 import { capitalizeFirstLetter } from '../utils/Normalization';
+import { auth } from '../utils/FirebaseConfig';
 
 interface InfluencerDetailsProps {
     influencerId: string;
@@ -12,7 +13,7 @@ interface InfluencerDetailsProps {
 
 
 const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, influencer }) => {
-  const fullName = `${capitalizeFirstLetter(influencer.firstName)} ${capitalizeFirstLetter(influencer.lastName)}`.trim();
+  const fullName = `${capitalizeFirstLetter(influencer?.firstName || '')} ${capitalizeFirstLetter(influencer?.lastName || '')}`.trim();
   const [showWriteReview, setShowWriteReview] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
             <h1 className="card-title h3 mb-2">{fullName}</h1>
             <div className="d-flex align-items-center">
               <span className="text-warning fs-4">★</span>
-              <span className="ms-2">{influencer.starRating.toFixed(2)}</span>
+              <span className="ms-2">{influencer?.starRating.toFixed(2) || ''}</span>
             </div>
           </div>
           
@@ -34,7 +35,7 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
             <div className="row">
               {PLATFORMS.map((platform) => {
                 const platformKey = platform.toLowerCase() as keyof InfluencerData;
-                if (influencer[platformKey]) {
+                if (influencer && influencer[platformKey]) {
                   return (
                     <div className="col-md-6 d-flex align-items-center mb-2" key={platform}>
                       <span className="fw-medium text-capitalize">{platform}:</span>
@@ -47,15 +48,15 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
             </div>
           </div>
 
-          {influencer.adAgency && (
+          {influencer && influencer.adAgency && (
             <div className="mb-4">
               <h2 className="h5 mb-3">Advertising Agency</h2>
               <p>{influencer.adAgency.split(' ').map(word => capitalizeFirstLetter(word)).join(' ')}</p>
             </div>
           )}
-
+          
           {/* Other Media Handles */}
-          {influencer.otherMediaHandles.length > 0 && (
+          {influencer && influencer.otherMediaHandles.length > 0 && (
             <div className="mb-4">
               <h2 className="h5 mb-3">Other Platforms</h2>
               <div className="row">
@@ -73,7 +74,7 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
           <div className="mb-4">
             <h2 className="h5 mb-3">Tags</h2>
             <div className="d-flex flex-wrap gap-2">
-              {influencer.tags.map((tag, index) => (
+              {influencer?.tags.map((tag, index) => (
                 <span
                   key={index}
                   className="badge bg-light text-dark"
@@ -87,7 +88,13 @@ const InfluencerDetails: React.FC<InfluencerDetailsProps> = ({ influencerId, inf
           {/* Review Button */}
           <div className="mb-4">
             <button 
-              onClick={() => setShowWriteReview(true)}
+              onClick={() => {
+                if (!auth.currentUser) {
+                  alert("Please log in to write a review.");
+                  window.location.href = "/";
+                }
+                setShowWriteReview(true);
+              }}
               className="btn btn-primary"
             >
               Write a review

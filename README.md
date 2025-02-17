@@ -7,8 +7,9 @@
 
 
 ## release 1.0.3
-- Users can browse posts without signing in
+- Unauthenticated users can browse posts, influencers, and user profiles.
 - Styling fix on review component 
+- Authenticated users can make anonymous reviews
 
 ## release 1.0.2
 - appended version number to asset files to ensure desired caching behavior

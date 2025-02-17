@@ -41,7 +41,12 @@ const UserProfileDetails: React.FC = () => {
                 {(userIdFromUrl === user?.uid) && <p>To update or delete your profile, please use the <a href="/ContactUs">Contact Us Page.</a></p>}   
                 <button 
                     className="btn btn-primary mt-3"
-                    onClick={() => window.location.href = `/reviewHistory?userId=${userIdFromUrl}`}
+                    onClick={() =>{
+                        if (!user) {
+                            alert("Please log in to view a user's review history.");
+                        }
+                         window.location.href = `/reviewHistory?userId=${userIdFromUrl}`  
+                    }}
                 >
                     Review History
                 </button>
