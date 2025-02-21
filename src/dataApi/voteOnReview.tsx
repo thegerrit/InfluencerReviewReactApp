@@ -1,11 +1,11 @@
-import { doc, getDoc, collection, increment, runTransaction } from "firebase/firestore";
+import { doc, collection, increment, runTransaction } from "firebase/firestore";
 import { db } from "../utils/FirebaseConfig";
 
-const voteOnReview = async (reviewId: string, userId: string, isUpvote: boolean) => {
+const voteOnReview = async (reviewId: string, userId: string, userVoteHistory: string[], isUpvote: boolean) => {
     const reviewDocRef = doc(db, "reviews", reviewId);
     await runTransaction(db, async (transaction) => {
         // console.log("Checking if user has voted on this review");
-        const hasVoted = await hasUserVoted(reviewId, userId);
+        const hasVoted = await hasUserVoted(userVoteHistory, reviewId);
         if (hasVoted) {
             // console.log("User has already voted on this review");
             return;
@@ -29,11 +29,8 @@ const voteOnReview = async (reviewId: string, userId: string, isUpvote: boolean)
     });
 };
 
-const hasUserVoted = async (reviewId: string, userId: string): Promise<boolean> => {
-    const userDocVoteHistRef = doc(db, "users", userId, "voteHistory", reviewId);
-    const userDocVoteHistSnap = await getDoc(userDocVoteHistRef);
-    return userDocVoteHistSnap.exists();
+const hasUserVoted = async (userVoteHistory: string[], reviewId: string): Promise<boolean> => {
+    return userVoteHistory.includes(reviewId);
 };
-
 
 export { voteOnReview, hasUserVoted };

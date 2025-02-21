@@ -20,16 +20,17 @@ interface ReviewProps {
   upvotes: number;
   downvotes: number;
   isAnonymous: boolean;
+  userVoteHistory: string[];
 }
 
-const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, influencerId, influencerName, date, textContent, starRating, upvotes, downvotes, isAnonymous }) => {
+const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, influencerId, influencerName, date, textContent, starRating, upvotes, downvotes, isAnonymous, userVoteHistory }) => {
   const [_upvotes, set_Upvotes] = useState(upvotes);
   const [_downvotes, set_Downvotes] = useState(downvotes);
   const [hasVoted, setHasVoted] = useState(false);
   const currentUserId = auth.currentUser?.uid ?? '';
 
   useEffect(() => {
-    hasUserVoted(postId, currentUserId).then(
+    hasUserVoted(userVoteHistory, postId).then(
       (_hasVoted: boolean) => {
         setHasVoted(_hasVoted);
         // console.log("has voted", _hasVoted);
@@ -38,7 +39,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
     set_Upvotes(upvotes);
     set_Downvotes(downvotes);
     // console.log("review component rerendered");
-  }, [postId]);
+  }, [postId, userVoteHistory]);
 
   useEffect(() => {
     // console.log("review component rerendered");
@@ -58,7 +59,7 @@ const ReviewComponent: React.FC<ReviewProps> = ({ postId, userName, userId, infl
     }
     if (!hasVoted) {
       isUpvote ? set_Upvotes((prev: number) => prev + 1) : set_Downvotes((prev: number) => prev + 1);
-      voteOnReview(postId, currentUserId, isUpvote).then(() => setHasVoted(true));
+      voteOnReview(postId, currentUserId, userVoteHistory, isUpvote).then(() => setHasVoted(true));
     }
   };
 

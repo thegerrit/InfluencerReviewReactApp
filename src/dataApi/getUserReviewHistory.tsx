@@ -3,6 +3,7 @@ import { Review } from "../model/Review";
 import { db } from "../utils/FirebaseConfig";
 
 const getUserReviewHistory = async (userId: string): Promise<Review[]> => {
+    console.log("Get user review history for user: ", userId);
     const reviewsCollectionRef = collection(db, "reviews");
     const q = query(reviewsCollectionRef, where("userId", "==", userId), orderBy("date", "desc"));
     const reviewsSnapshot = await getDocs(q);

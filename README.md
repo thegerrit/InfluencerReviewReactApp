@@ -5,6 +5,10 @@
 
 ## Changelog
 
+## release 1.0.4
+- added optimized reading user vote history.
+- upgraded to node 22
+- upgraded dependencies
 
 ## release 1.0.3
 - Unauthenticated users can browse posts, influencers, and user profiles.

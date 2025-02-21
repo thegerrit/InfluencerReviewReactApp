@@ -3,6 +3,9 @@ import { getReviewsWithPagination } from "../dataApi/GetReviewsByInfluencerId";
 import ReviewComponent from "./ReviewComponent";
 import { DocumentSnapshot, QuerySnapshot, where } from "firebase/firestore";
 import { Review } from '../model/Review';
+import { getUserVoteHistory } from '../dataApi/getUserVoteHistory';
+import { auth } from '../utils/FirebaseConfig';
+
 interface PaginatedReviewsProps {
     queryBy: "influencerId" | "userId";
     queryValue: string;
@@ -15,6 +18,13 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
     const [firstDoc, setFirstDoc] = useState<DocumentSnapshot | null>(null);
     const [lastDoc, setLastDoc] = useState<DocumentSnapshot | null>(null);
     const [mode, setMode] = useState<"next" | "previous" | "backFromLast" | "initial">("initial");
+    const [userVoteHistory, setUserVoteHistory] = useState<string[]>([]);
+
+    useEffect(() => {
+        getUserVoteHistory(auth.currentUser?.uid || "").then(voteHistory => {
+            setUserVoteHistory(voteHistory);
+        });
+    }, []);
 
     useEffect(() => {
         console.log("queryBy: ", queryBy);
@@ -74,7 +84,7 @@ const PaginatedReviews: React.FC<PaginatedReviewsProps> = ({ queryBy, queryValue
                 <ReviewComponent key={index} reviewData={review} />
             ))} */}
             {reviews.map((review) => (
-                <ReviewComponent {...review} />
+                <ReviewComponent {...review} userVoteHistory={userVoteHistory} />
             ))}
             <div className="d-flex justify-content-between mt-3">
                 <button
