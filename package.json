@@ -13,8 +13,8 @@
     "buildwatch": "tsc -b && vite build --watch",
     "start": "node index.js",
     "serve": "npx functions-framework --target=serveViteApp [--signature-type=http] --port=3000",
-    "deploy:test": "npm run build:test && gcloud functions deploy InfluencerReviewAppTest --runtime=nodejs18 --region=us-east4 --trigger-http --allow-unauthenticated --entry-point=serveViteApp --source=.",
-    "deploy:prod": "npm run build:prod && gcloud functions deploy InfluencerReviewApp--gen2 --runtime=nodejs18 --region=us-east4 --trigger-http --allow-unauthenticated --entry-point=serveViteApp --source=."
+    "deploy:test": "npm run build:test && gcloud functions deploy InfluencerReviewAppTest --runtime=nodejs22 --region=us-east4 --trigger-http --allow-unauthenticated --entry-point=serveViteApp --source=.",
+    "deploy:prod": "npm run build:prod && gcloud functions deploy InfluencerReviewApp--gen2 --runtime=nodejs22 --region=us-east4 --trigger-http --allow-unauthenticated --entry-point=serveViteApp --source=."
   },
   "dependencies": {
     "@google-cloud/functions-framework": "^3.4.5",
